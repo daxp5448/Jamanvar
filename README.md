@@ -1,6 +1,6 @@
 # Jamanvar 
 
-Marketing site for **Jamanvar** — a modern restaurant management & billing platform crafted for Indian hospitality, by [Kelviontech](https://kelviontech.com). Built with Next.js, TypeScript, and Tailwind CSS.
+Marketing site for **Jamanvar** — a modern restaurant management & billing platform crafted for Indian hospitality, by [Kelviontech](https://kelviontech.in). Built with Next.js, TypeScript, and Tailwind CSS.
 
 > Run your restaurant without the chaos. Jamanvar brings billing, orders, tables, kitchen operations, inventory, and insights together in one simple, premium system.
 
