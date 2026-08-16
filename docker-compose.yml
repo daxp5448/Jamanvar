@@ -1,14 +1,23 @@
 # ------------------------------------------------------------------------------
 # Jamanvar — jamanvar.kelviontech.in
 #
-# Single stateless container. It publishes ONLY on 127.0.0.1 so the app is never
-# exposed straight to the internet: Docker's own iptables rules bypass the host
-# INPUT chain, so a `0.0.0.0` publish would be world-reachable even with the
-# Ubuntu firewall closed. Nginx on the host terminates TLS and proxies to it.
+# Single stateless container. Published on 0.0.0.0, matching the proven pattern
+# already in production for restaurant.kelviontech.in / restaurent.kelviontech.in:
+# the shared nginx (kelviontech-nginx-1) runs in its OWN container on a separate
+# Docker network (kelviontech_default) and reaches sibling apps across the host
+# via the default bridge gateway (172.17.0.1), not by container DNS name. A
+# 127.0.0.1-only publish would refuse that connection — it only accepts traffic
+# actually originating from the host's own loopback.
+#
+# This is still safe from the internet: the OCI Security List (checked outside
+# the VM, before packets ever reach its NIC) only opens 80/443/22. That's a
+# different layer than the Ubuntu host firewall, which Docker's iptables rules
+# genuinely do bypass — so this open-bridge pattern only holds because the cloud
+# firewall is the real perimeter here, not the OS one.
 #
 # Host port map on this server:
-#   3000 -> kelviontech.in (main site)
-#   3001 -> restaurent.kelviontech.in
+#   3000 -> kelviontech.in (main site, internal-only, no host port)
+#   3001 -> restaurent.kelviontech.in / restaurant.kelviontech.in
 #   3002 -> jamanvar.kelviontech.in   <-- this stack
 # ------------------------------------------------------------------------------
 
@@ -23,7 +32,7 @@ services:
     container_name: jamanvar-web
     restart: unless-stopped
     ports:
-      - "127.0.0.1:${HOST_PORT:-3002}:3000"
+      - "${HOST_PORT:-3002}:3000"
     environment:
       NODE_ENV: production
       NEXT_PUBLIC_SITE_URL: ${SITE_URL:-https://jamanvar.kelviontech.in}
@@ -38,7 +47,3 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
-
-networks:
-  default:
-    name: jamanvar-net

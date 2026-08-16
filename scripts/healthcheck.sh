@@ -45,10 +45,22 @@ for path in /robots.txt /sitemap.xml /images/jamanvar/brand-logo-transparent.png
 done
 
 info "Port exposure"
-if ss -ltnp 2>/dev/null | grep -q "127.0.0.1:${HOST_PORT}"; then
-  ok "bound to loopback only (not internet-facing)"
-elif ss -ltn 2>/dev/null | grep -q "0.0.0.0:${HOST_PORT}"; then
-  bad "bound to 0.0.0.0 — Docker bypasses the host firewall, fix the ports: entry"
+if ss -ltn 2>/dev/null | grep -qE "0\.0\.0\.0:${HOST_PORT}\b"; then
+  ok "bound to 0.0.0.0 (expected — the shared nginx container reaches it via the bridge gateway, not container DNS)"
+else
+  bad "not bound to 0.0.0.0:${HOST_PORT} — the shared nginx container won't be able to reach it"
+fi
+
+info "Reachable from the shared nginx container (172.17.0.1 bridge gateway)"
+if command -v docker >/dev/null && docker ps --format '{{.Names}}' | grep -qx kelviontech-nginx-1; then
+  code=$(docker exec kelviontech-nginx-1 sh -c "wget -qO- -T 5 --server-response http://172.17.0.1:${HOST_PORT}/ 2>&1 | grep -o 'HTTP/[0-9.]* [0-9]*' | tail -1" 2>/dev/null)
+  if echo "$code" | grep -q "200"; then
+    ok "kelviontech-nginx-1 -> 172.17.0.1:${HOST_PORT} -> 200"
+  else
+    bad "kelviontech-nginx-1 can't reach 172.17.0.1:${HOST_PORT} (got: ${code:-no response})"
+  fi
+else
+  echo "  - kelviontech-nginx-1 not found, skipping"
 fi
 
 info "Public endpoint (${DOMAIN})"
