@@ -84,14 +84,18 @@ nginx-reload: ## Test and reload the shared nginx container's config
 
 .PHONY: ssl
 ssl: ## Issue the Let's Encrypt certificate (run after nginx-bootstrap succeeds)
-	cd $(KELVIONTECH_DIR) && $(COMPOSE) run --rm certbot certonly \
+	# --entrypoint overrides the certbot service's own entrypoint (a hardcoded
+	# `sh -c "while :; do certbot renew ...; sleep 12h; done"` loop that never
+	# reads "$@" — without this override, `certonly -d ...` gets silently
+	# swallowed and it just runs the renewal loop forever instead).
+	cd $(KELVIONTECH_DIR) && $(COMPOSE) run --rm --entrypoint certbot certbot certonly \
 		--webroot -w /var/www/certbot \
 		-d $(DOMAIN) \
 		--email kelviontech@gmail.com --agree-tos --no-eff-email
 
 .PHONY: ssl-renew-dry
 ssl-renew-dry: ## Test certificate auto-renewal without issuing anything
-	cd $(KELVIONTECH_DIR) && $(COMPOSE) run --rm certbot renew --dry-run
+	cd $(KELVIONTECH_DIR) && $(COMPOSE) run --rm --entrypoint certbot certbot renew --dry-run
 
 # --- Housekeeping -------------------------------------------------------------
 
