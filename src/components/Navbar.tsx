@@ -33,7 +33,6 @@ export function Navbar({ onOpenDemo }: NavbarProps) {
     { name: "How It Works", href: "#how-it-works" },
     { name: "Analytics", href: "#analytics" },
     { name: "Hardware", href: "#hardware" },
-    { name: "Pricing", href: "#pricing" },
   ];
 
   return (

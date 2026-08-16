@@ -25,7 +25,12 @@ const notoSansGujarati = Noto_Sans_Gujarati({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://jamanvar.kelviontech.com"),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://jamanvar.kelviontech.in"
+  ),
+  alternates: {
+    canonical: "/",
+  },
   title: "Jamanvar POS | Modern Restaurant Management & Billing Software",
   description:
     "Run your restaurant without the chaos. Jamanvar brings billing, orders, tables, kitchen operations, inventory and insights together in one simple, premium system.",

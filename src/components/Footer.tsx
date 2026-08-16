@@ -69,7 +69,7 @@ export function Footer() {
             </h4>
             <ul className="space-y-2 text-white/60">
               <li><a href="#how-it-works" className="hover:text-white transition-colors">About Jamanvar</a></li>
-              <li><a href="#pricing" className="hover:text-white transition-colors">Pricing Plans</a></li>
+              <li><a href="#features" className="hover:text-white transition-colors">Why Jamanvar</a></li>
               <li><span className="hover:text-white transition-colors cursor-pointer">Support & Training</span></li>
               <li><span className="hover:text-white transition-colors cursor-pointer">Kelviontech Suite</span></li>
               <li><span className="hover:text-white transition-colors cursor-pointer">Contact Team</span></li>

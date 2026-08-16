@@ -13,7 +13,6 @@ import { RoiCalculator } from "@/components/RoiCalculator";
 import { AnalyticsSection } from "@/components/AnalyticsSection";
 import { HardwareSection } from "@/components/HardwareSection";
 import { RestaurateurStories } from "@/components/RestaurateurStories";
-import { Pricing } from "@/components/Pricing";
 import { FinalCTA } from "@/components/FinalCTA";
 import { Footer } from "@/components/Footer";
 import { DemoModal } from "@/components/DemoModal";
@@ -100,9 +99,6 @@ export default function Home() {
 
       {/* Section: Restaurateur Testimonials & Case Studies */}
       <RestaurateurStories />
-
-      {/* Section: Clean 3-Tier Pricing with Annual Switcher */}
-      <Pricing onOpenDemo={handleOpenDemo} />
 
       {/* Section: Final Royal Gujarati CTA */}
       <FinalCTA onOpenDemo={handleOpenDemo} />

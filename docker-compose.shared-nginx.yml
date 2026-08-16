@@ -1,0 +1,30 @@
+# ------------------------------------------------------------------------------
+# OPTIONAL OVERRIDE — only if nginx runs as a CONTAINER (the KelvionTech stack's
+# own nginx service owning ports 80/443), not as a host service.
+#
+# It drops the host port publish entirely and joins the KelvionTech Docker
+# network so that stack's nginx can reach this app by container name.
+#
+# Usage:
+#   docker compose -f docker-compose.yml -f docker-compose.shared-nginx.yml up -d --build
+#   (or: make deploy-shared-nginx)
+#
+# Find the network name first:
+#   docker network ls | grep -i kelvion
+# then set KELVION_NETWORK in .env to match.
+#
+# NOTE: `!reset` needs Docker Compose v2.24+ (`docker compose version`). On older
+# versions, just delete the `ports:` block from docker-compose.yml instead.
+# ------------------------------------------------------------------------------
+
+services:
+  web:
+    ports: !reset []
+    networks:
+      - default
+      - kelvion
+
+networks:
+  kelvion:
+    external: true
+    name: ${KELVION_NETWORK:-kelviontech_default}

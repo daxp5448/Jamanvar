@@ -1,0 +1,44 @@
+# ------------------------------------------------------------------------------
+# Jamanvar — jamanvar.kelviontech.in
+#
+# Single stateless container. It publishes ONLY on 127.0.0.1 so the app is never
+# exposed straight to the internet: Docker's own iptables rules bypass the host
+# INPUT chain, so a `0.0.0.0` publish would be world-reachable even with the
+# Ubuntu firewall closed. Nginx on the host terminates TLS and proxies to it.
+#
+# Host port map on this server:
+#   3000 -> kelviontech.in (main site)
+#   3001 -> restaurent.kelviontech.in
+#   3002 -> jamanvar.kelviontech.in   <-- this stack
+# ------------------------------------------------------------------------------
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_SITE_URL: ${SITE_URL:-https://jamanvar.kelviontech.in}
+    image: jamanvar-web:latest
+    container_name: jamanvar-web
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${HOST_PORT:-3002}:3000"
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_SITE_URL: ${SITE_URL:-https://jamanvar.kelviontech.in}
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:3000/"]
+      interval: 30s
+      timeout: 5s
+      start_period: 20s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  default:
+    name: jamanvar-net
