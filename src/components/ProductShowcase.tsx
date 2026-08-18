@@ -120,7 +120,13 @@ export function ProductShowcase() {
     <section id="product-showcase" className="py-20 md:py-32 bg-jamanvar-cream-50 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-30px" }}
+          transition={{ duration: 0.5 }}
+          className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
+        >
           <span className="text-xs font-extrabold uppercase tracking-widest text-jamanvar-saffron-600 block mb-2">
             INTERACTIVE SYSTEM EXPLORER
           </span>
@@ -130,10 +136,16 @@ export function ProductShowcase() {
           <p className="mt-4 text-base sm:text-lg text-jamanvar-navy-900/70">
             Switch between views to experience how Jamanvar unites every department of your restaurant in real time.
           </p>
-        </div>
+        </motion.div>
 
         {/* Tab Controls Bar */}
-        <div className="flex justify-center mb-8 overflow-x-auto no-scrollbar py-1">
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-30px" }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="flex justify-center mb-8 overflow-x-auto no-scrollbar py-1"
+        >
           <div className="inline-flex p-1.5 rounded-2xl bg-white border border-jamanvar-navy-900/10 shadow-subtle gap-1.5">
             {TABS.map((tab) => {
               const Icon = tab.icon;
@@ -160,10 +172,16 @@ export function ProductShowcase() {
               );
             })}
           </div>
-        </div>
+        </motion.div>
 
         {/* Central Product Showcase Container */}
-        <div className="bg-jamanvar-navy-950 text-white rounded-3xl border border-white/10 shadow-2xl overflow-hidden min-h-[580px] flex flex-col justify-between">
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-30px" }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="bg-jamanvar-navy-950 text-white rounded-3xl border border-white/10 shadow-2xl overflow-hidden min-h-[580px] flex flex-col justify-between"
+        >
           {/* Top Mock Window Bar */}
           <div className="flex items-center justify-between px-5 py-3.5 bg-jamanvar-navy-900/90 border-b border-white/10 text-xs">
             <div className="flex items-center gap-3">
@@ -626,7 +644,7 @@ export function ProductShowcase() {
               )}
             </AnimatePresence>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

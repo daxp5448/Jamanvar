@@ -13,7 +13,7 @@ export function Footer() {
   return (
     <footer className="bg-jamanvar-navy-950 text-white/70 border-t border-white/10 pt-16 pb-12 text-xs relative overflow-hidden">
       {/* Background Watermark in Footer */}
-      <div className="absolute -bottom-16 -right-16 w-[500px] h-[350px] opacity-[0.03] pointer-events-none">
+      <div className="hidden sm:block absolute -bottom-16 -right-16 w-[500px] h-[350px] opacity-[0.03] pointer-events-none">
         <Image
           src="/images/jamanvar/watermark-emblem.png"
           alt=""
@@ -69,8 +69,8 @@ export function Footer() {
             </h4>
             <ul className="space-y-2 text-white/60">
               <li><a href="#how-it-works" className="hover:text-white transition-colors">About Jamanvar</a></li>
-              <li><a href="#features" className="hover:text-white transition-colors">Why Jamanvar</a></li>
-              <li><span className="hover:text-white transition-colors cursor-pointer">Support & Training</span></li>
+              <li><a href="#features" className="hover:text-white transition-colors">System Features</a></li>
+              <li><span className="hover:text-white transition-colors cursor-pointer">Support &amp; Training</span></li>
               <li><span className="hover:text-white transition-colors cursor-pointer">Kelviontech Suite</span></li>
               <li><span className="hover:text-white transition-colors cursor-pointer">Contact Team</span></li>
             </ul>
@@ -79,12 +79,12 @@ export function Footer() {
           {/* Col 5: Legal & Social */}
           <div>
             <h4 className="font-bold text-white uppercase text-[11px] tracking-wider mb-3">
-              Legal & Social
+              Legal &amp; Social
             </h4>
             <ul className="space-y-2 text-white/60">
               <li><span className="hover:text-white transition-colors cursor-pointer">Privacy Policy</span></li>
               <li><span className="hover:text-white transition-colors cursor-pointer">Terms of Service</span></li>
-              <li><span className="hover:text-white transition-colors cursor-pointer">Security & GST</span></li>
+              <li><span className="hover:text-white transition-colors cursor-pointer">Security &amp; GST</span></li>
               <li><span className="hover:text-white transition-colors cursor-pointer">LinkedIn</span></li>
               <li><span className="hover:text-white transition-colors cursor-pointer">Twitter / X</span></li>
             </ul>

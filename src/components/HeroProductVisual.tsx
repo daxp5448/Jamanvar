@@ -8,13 +8,11 @@ import {
   CreditCard,
   ChefHat,
   TrendingUp,
-  Clock,
   CheckCircle2,
   Search,
   Plus,
   Minus,
   Trash2,
-  Sparkles,
 } from "lucide-react";
 import { BillData, BillItem } from "./ThermalBillModal";
 
@@ -40,16 +38,16 @@ const MENU_DATABASE: MenuItem[] = [
 export function HeroProductVisual() {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Parallax Tilt State
+  // Parallax Tilt State (Desktop only)
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
   const springConfig = { damping: 25, stiffness: 120 };
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [4, -4]), springConfig);
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-5, 5]), springConfig);
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [3, -3]), springConfig);
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-4, 4]), springConfig);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!containerRef.current) return;
+    if (!containerRef.current || typeof window === "undefined" || window.innerWidth < 1024) return;
     const rect = containerRef.current.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
@@ -169,10 +167,10 @@ export function HeroProductVisual() {
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative w-full max-w-5xl mx-auto perspective-1000 py-4 sm:py-6"
+      className="relative w-full max-w-5xl mx-auto py-2 sm:py-6"
     >
       {/* Ambient background glow */}
-      <div className="absolute -inset-4 bg-gradient-to-r from-jamanvar-saffron-500/15 via-jamanvar-navy-900/10 to-jamanvar-saffron-500/20 rounded-3xl blur-2xl -z-10 pointer-events-none" />
+      <div className="absolute -inset-2 sm:-inset-4 bg-gradient-to-r from-jamanvar-saffron-500/15 via-jamanvar-navy-900/10 to-jamanvar-saffron-500/20 rounded-2xl sm:rounded-3xl blur-xl sm:blur-2xl -z-10 pointer-events-none" />
 
       {/* Main Terminal Frame */}
       <motion.div
@@ -184,89 +182,93 @@ export function HeroProductVisual() {
         className="relative bg-jamanvar-navy-950 text-white rounded-2xl sm:rounded-3xl border border-white/15 shadow-2xl overflow-hidden"
       >
         {/* Terminal Top Titlebar */}
-        <div className="flex items-center justify-between px-4 sm:px-6 py-3 bg-jamanvar-navy-900 border-b border-white/10 text-xs">
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1.5">
-              <span className="w-3 h-3 rounded-full bg-red-500 inline-block" />
-              <span className="w-3 h-3 rounded-full bg-amber-500 inline-block" />
-              <span className="w-3 h-3 rounded-full bg-emerald-500 inline-block" />
+        <div className="flex items-center justify-between px-3.5 sm:px-6 py-2.5 sm:py-3 bg-jamanvar-navy-900 border-b border-white/10 text-xs">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+            <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
+              <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-500 inline-block" />
+              <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-amber-500 inline-block" />
+              <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-emerald-500 inline-block" />
             </div>
-            <div className="h-4 w-px bg-white/15" />
-            <div className="flex items-center gap-2">
-              <span className="font-extrabold tracking-wide text-white">JAMANVAR POS</span>
-              <span className="text-[10px] bg-jamanvar-saffron-500/25 text-jamanvar-saffron-300 px-2 py-0.5 rounded font-mono font-bold">
-                TERMINAL #01 (DINE-IN)
+            <div className="h-3.5 w-px bg-white/15 shrink-0" />
+            <div className="flex items-center gap-1.5 sm:gap-2 truncate">
+              <span className="font-extrabold tracking-wide text-white text-[11px] sm:text-xs truncate">
+                JAMANVAR POS
+              </span>
+              <span className="text-[9px] sm:text-[10px] bg-jamanvar-saffron-500/25 text-jamanvar-saffron-300 px-1.5 sm:px-2 py-0.5 rounded font-mono font-bold shrink-0">
+                #01 (DINE-IN)
               </span>
             </div>
           </div>
 
-          <div className="flex items-center gap-4 text-white/70">
+          <div className="flex items-center gap-2 sm:gap-4 text-white/70 shrink-0">
             <div className="hidden sm:flex items-center gap-1.5 text-[11px]">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-white/80 font-medium">Sync Live: Cloud Connected</span>
+              <span className="text-white/80 font-medium">Sync Live</span>
             </div>
-            <div className="font-mono text-[11px] text-white/90 font-bold">20:18:44 IST</div>
+            <div className="font-mono text-[10px] sm:text-[11px] text-white/90 font-bold">
+              20:18 IST
+            </div>
           </div>
         </div>
 
         {/* Top Metric Bar (Revenue, Orders, Tables, Avg Order) */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10 border-b border-white/10">
-          <div className="bg-jamanvar-navy-900/80 p-3.5 sm:p-4">
-            <span className="text-[10px] uppercase tracking-wider text-white/60 block font-bold">
+          <div className="bg-jamanvar-navy-900/90 p-2.5 sm:p-4">
+            <span className="text-[9px] sm:text-[10px] uppercase tracking-wider text-white/60 block font-bold">
               Today's Revenue
             </span>
-            <div className="flex items-baseline gap-2 mt-0.5">
-              <span className="text-lg sm:text-2xl font-black text-white">₹48,250</span>
-              <span className="text-[11px] font-bold text-emerald-400">
+            <div className="flex items-baseline gap-1.5 sm:gap-2 mt-0.5">
+              <span className="text-base sm:text-2xl font-black text-white">₹48,250</span>
+              <span className="text-[10px] sm:text-[11px] font-bold text-emerald-400">
                 +18.4%
               </span>
             </div>
           </div>
 
-          <div className="bg-jamanvar-navy-900/80 p-3.5 sm:p-4">
-            <span className="text-[10px] uppercase tracking-wider text-white/60 block font-bold">
+          <div className="bg-jamanvar-navy-900/90 p-2.5 sm:p-4">
+            <span className="text-[9px] sm:text-[10px] uppercase tracking-wider text-white/60 block font-bold">
               Total Orders
             </span>
-            <div className="flex items-baseline gap-2 mt-0.5">
-              <span className="text-lg sm:text-2xl font-black text-white">127</span>
-              <span className="text-[11px] text-white/50">bills settled</span>
+            <div className="flex items-baseline gap-1.5 sm:gap-2 mt-0.5">
+              <span className="text-base sm:text-2xl font-black text-white">127</span>
+              <span className="text-[10px] sm:text-[11px] text-white/50">bills</span>
             </div>
           </div>
 
-          <div className="bg-jamanvar-navy-900/80 p-3.5 sm:p-4">
-            <span className="text-[10px] uppercase tracking-wider text-white/60 block font-bold">
+          <div className="bg-jamanvar-navy-900/90 p-2.5 sm:p-4">
+            <span className="text-[9px] sm:text-[10px] uppercase tracking-wider text-white/60 block font-bold">
               Active Tables
             </span>
-            <div className="flex items-baseline gap-2 mt-0.5">
-              <span className="text-lg sm:text-2xl font-black text-jamanvar-saffron-400">
-                34 <span className="text-sm font-normal text-white/50">/ 42</span>
+            <div className="flex items-baseline gap-1.5 sm:gap-2 mt-0.5">
+              <span className="text-base sm:text-2xl font-black text-jamanvar-saffron-400">
+                34 <span className="text-xs font-normal text-white/50">/42</span>
               </span>
-              <span className="text-[11px] text-amber-300 font-bold">81% full</span>
+              <span className="text-[10px] sm:text-[11px] text-amber-300 font-bold">81%</span>
             </div>
           </div>
 
-          <div className="bg-jamanvar-navy-900/80 p-3.5 sm:p-4">
-            <span className="text-[10px] uppercase tracking-wider text-white/60 block font-bold">
-              Current Cart Total
+          <div className="bg-jamanvar-navy-900/90 p-2.5 sm:p-4">
+            <span className="text-[9px] sm:text-[10px] uppercase tracking-wider text-white/60 block font-bold">
+              Current Total
             </span>
-            <div className="flex items-baseline gap-2 mt-0.5">
-              <span className="text-lg sm:text-2xl font-black text-emerald-400">₹{total}</span>
-              <span className="text-[11px] text-white/50">{cartItems.length} items</span>
+            <div className="flex items-baseline gap-1.5 sm:gap-2 mt-0.5">
+              <span className="text-base sm:text-2xl font-black text-emerald-400">₹{total}</span>
+              <span className="text-[10px] sm:text-[11px] text-white/50">{cartItems.length} items</span>
             </div>
           </div>
         </div>
 
         {/* POS Workstation: Left Menu Grid + Right Order Panel */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[420px]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[380px]">
           {/* LEFT: Menu / Quick Touch Grid (7 cols) */}
-          <div className="lg:col-span-7 p-4 sm:p-5 border-b lg:border-b-0 lg:border-r border-white/10 bg-jamanvar-navy-900/40">
+          <div className="lg:col-span-7 p-3.5 sm:p-5 border-b lg:border-b-0 lg:border-r border-white/10 bg-jamanvar-navy-900/40">
             {/* Quick search and category pill bar */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 mb-4">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 mb-3 sm:mb-4">
               <div className="relative flex-1">
                 <Search className="w-3.5 h-3.5 text-white/40 absolute left-3 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
-                  placeholder="Search Kebab, Biryani, Naan..."
+                  placeholder="Search dishes..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full bg-white/5 border border-white/10 rounded-lg pl-8 pr-3 py-1.5 text-xs text-white/90 placeholder:text-white/40 focus:outline-none focus:border-jamanvar-saffron-500"
@@ -277,7 +279,7 @@ export function HeroProductVisual() {
                   <button
                     key={cat}
                     onClick={() => setActiveCategory(cat)}
-                    className={`px-2.5 py-1 rounded-md text-[11px] font-bold transition-colors cursor-pointer shrink-0 ${
+                    className={`px-2.5 py-1 rounded-md text-[10px] sm:text-[11px] font-bold transition-colors cursor-pointer shrink-0 ${
                       activeCategory === cat
                         ? "bg-jamanvar-saffron-500 text-white"
                         : "bg-white/10 text-white/70 hover:bg-white/15"
@@ -290,25 +292,25 @@ export function HeroProductVisual() {
             </div>
 
             {/* Quick Menu Touch Tiles */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 max-h-[300px] overflow-y-auto pr-1">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-2.5 max-h-[260px] sm:max-h-[300px] overflow-y-auto pr-1">
               {filteredMenu.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => handleAddItem(item)}
-                  className="p-3 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-jamanvar-saffron-500/60 transition-all text-left group cursor-pointer"
+                  className="p-2.5 sm:p-3 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-jamanvar-saffron-500/60 transition-all text-left group cursor-pointer"
                 >
-                  <div className="flex items-center justify-between mb-1.5">
+                  <div className="flex items-center justify-between mb-1">
                     <span className="w-2.5 h-2.5 rounded-sm border border-emerald-400 flex items-center justify-center p-0.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                     </span>
-                    <span className="text-[10px] font-mono text-white/40">{item.code}</span>
+                    <span className="text-[9px] sm:text-[10px] font-mono text-white/40">{item.code}</span>
                   </div>
-                  <div className="font-bold text-xs text-white group-hover:text-jamanvar-saffron-300 transition-colors truncate">
+                  <div className="font-bold text-[11px] sm:text-xs text-white group-hover:text-jamanvar-saffron-300 transition-colors truncate">
                     {item.name}
                   </div>
-                  <div className="flex items-center justify-between mt-2">
+                  <div className="flex items-center justify-between mt-1.5 sm:mt-2">
                     <span className="text-xs font-black text-jamanvar-saffron-400">₹{item.price}</span>
-                    <span className="text-[10px] text-white/60 bg-white/10 group-hover:bg-jamanvar-saffron-500 group-hover:text-white px-1.5 py-0.5 rounded font-bold transition-colors">
+                    <span className="text-[9px] sm:text-[10px] text-white/60 bg-white/10 group-hover:bg-jamanvar-saffron-500 group-hover:text-white px-1.5 py-0.5 rounded font-bold transition-colors">
                       + Add
                     </span>
                   </div>
@@ -317,86 +319,86 @@ export function HeroProductVisual() {
             </div>
 
             {/* Quick Status Bar */}
-            <div className="mt-4 p-3 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between text-xs text-white/80">
-              <div className="flex items-center gap-2">
-                <ChefHat className="w-4 h-4 text-jamanvar-saffron-400" />
-                <span className="text-[11px]">Click any dish above — Cart &amp; Bill recalculate automatically!</span>
+            <div className="mt-3 sm:mt-4 p-2.5 sm:p-3 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between text-xs text-white/80">
+              <div className="flex items-center gap-2 min-w-0">
+                <ChefHat className="w-4 h-4 text-jamanvar-saffron-400 shrink-0" />
+                <span className="text-[10px] sm:text-[11px] truncate">Tap any dish above to add to cart</span>
               </div>
-              <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/20 px-2 py-0.5 rounded-full">
-                Auto Sync
+              <span className="text-[9px] sm:text-[10px] font-bold text-emerald-400 bg-emerald-500/20 px-2 py-0.5 rounded-full shrink-0">
+                Live
               </span>
             </div>
           </div>
 
           {/* RIGHT: Live Order Panel (5 cols) */}
-          <div className="lg:col-span-5 p-4 sm:p-5 flex flex-col justify-between bg-jamanvar-navy-950">
+          <div className="lg:col-span-5 p-3.5 sm:p-5 flex flex-col justify-between bg-jamanvar-navy-950">
             <div>
               {/* Order Header */}
-              <div className="flex items-center justify-between pb-3 border-b border-white/10">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-xl bg-jamanvar-saffron-500 text-white flex items-center justify-center font-black text-xs shadow-saffron-sm">
+              <div className="flex items-center justify-between pb-2.5 sm:pb-3 border-b border-white/10">
+                <div className="flex items-center gap-2 sm:gap-2.5">
+                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl bg-jamanvar-saffron-500 text-white flex items-center justify-center font-black text-xs shadow-saffron-sm">
                     07
                   </div>
                   <div>
-                    <div className="font-bold text-sm text-white flex items-center gap-1.5">
+                    <div className="font-bold text-xs sm:text-sm text-white flex items-center gap-1">
                       <span>Table 07</span>
-                      <span className="text-[10px] font-normal text-white/50">(Terrace)</span>
+                      <span className="text-[9px] sm:text-[10px] font-normal text-white/50">(Terrace)</span>
                     </div>
-                    <span className="text-[10px] text-white/50">Captain: Amit P. • 4 Guests</span>
+                    <span className="text-[9px] sm:text-[10px] text-white/50">Captain: Amit P.</span>
                   </div>
                 </div>
-                <span className="text-[10px] font-bold bg-amber-400/20 text-amber-300 px-2.5 py-1 rounded-full">
+                <span className="text-[9px] sm:text-[10px] font-bold bg-amber-400/20 text-amber-300 px-2 py-0.5 rounded-full">
                   Live Cart
                 </span>
               </div>
 
               {/* Order Item List with Add/Remove Controls */}
-              <div className="divide-y divide-white/5 max-h-48 overflow-y-auto no-scrollbar py-2 space-y-1 text-xs">
+              <div className="divide-y divide-white/5 max-h-40 sm:max-h-48 overflow-y-auto no-scrollbar py-1.5 space-y-1 text-xs">
                 {cartItems.length === 0 ? (
-                  <div className="py-8 text-center text-white/40 text-xs">
-                    Cart is empty. Tap any dish on left to add!
+                  <div className="py-6 text-center text-white/40 text-xs">
+                    Cart is empty. Tap any dish to add!
                   </div>
                 ) : (
                   cartItems.map((item) => (
-                    <div key={item.id} className="py-2 flex items-center justify-between gap-2">
+                    <div key={item.id} className="py-1.5 sm:py-2 flex items-center justify-between gap-1.5 sm:gap-2">
                       <div className="flex-1 min-w-0">
-                        <div className="text-white font-semibold truncate">{item.name}</div>
-                        <div className="text-[10px] text-white/40">
+                        <div className="text-white font-semibold text-[11px] sm:text-xs truncate">{item.name}</div>
+                        <div className="text-[9px] sm:text-[10px] text-white/40">
                           ₹{item.unitPrice} each
                         </div>
                       </div>
 
                       {/* Quantity Controls */}
-                      <div className="flex items-center gap-1.5 bg-white/10 rounded-lg p-0.5">
+                      <div className="flex items-center gap-1 bg-white/10 rounded-lg p-0.5 shrink-0">
                         <button
                           onClick={() => handleDecreaseQty(item.id)}
-                          className="w-5 h-5 rounded flex items-center justify-center hover:bg-white/20 text-white/80 transition-colors"
+                          className="w-4 h-4 sm:w-5 sm:h-5 rounded flex items-center justify-center hover:bg-white/20 text-white/80 transition-colors"
                           title="Decrease"
                         >
-                          <Minus className="w-3 h-3" />
+                          <Minus className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                         </button>
-                        <span className="font-mono font-bold text-xs text-white px-1">
+                        <span className="font-mono font-bold text-[11px] sm:text-xs text-white px-1">
                           {item.qty}
                         </span>
                         <button
                           onClick={() => handleIncreaseQty(item.id)}
-                          className="w-5 h-5 rounded flex items-center justify-center hover:bg-white/20 text-white/80 transition-colors"
+                          className="w-4 h-4 sm:w-5 sm:h-5 rounded flex items-center justify-center hover:bg-white/20 text-white/80 transition-colors"
                           title="Increase"
                         >
-                          <Plus className="w-3 h-3" />
+                          <Plus className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                         </button>
                       </div>
 
-                      <span className="font-mono font-bold text-white w-14 text-right">
+                      <span className="font-mono font-bold text-white text-[11px] sm:text-xs w-12 sm:w-14 text-right shrink-0">
                         ₹{item.total}
                       </span>
 
                       <button
                         onClick={() => handleRemoveItem(item.id)}
-                        className="text-white/30 hover:text-red-400 transition-colors p-1"
+                        className="text-white/30 hover:text-red-400 transition-colors p-0.5 shrink-0"
                         title="Remove"
                       >
-                        <Trash2 className="w-3.5 h-3.5" />
+                        <Trash2 className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                       </button>
                     </div>
                   ))
@@ -405,33 +407,33 @@ export function HeroProductVisual() {
             </div>
 
             {/* Calculations & Settle Bar */}
-            <div className="pt-3 border-t border-white/10 space-y-2">
-              <div className="flex justify-between text-xs text-white/70">
+            <div className="pt-2.5 sm:pt-3 border-t border-white/10 space-y-1.5 sm:space-y-2">
+              <div className="flex justify-between text-[11px] sm:text-xs text-white/70">
                 <span>Subtotal ({cartItems.length} items)</span>
                 <span className="font-mono">₹{subtotal}</span>
               </div>
-              <div className="flex justify-between text-xs text-white/70">
+              <div className="flex justify-between text-[11px] sm:text-xs text-white/70">
                 <span>GST (CGST 2.5% + SGST 2.5%)</span>
                 <span className="font-mono">₹{gst}</span>
               </div>
-              <div className="flex justify-between text-sm sm:text-base font-extrabold text-white pt-1.5 border-t border-white/10">
+              <div className="flex justify-between text-xs sm:text-base font-extrabold text-white pt-1 sm:pt-1.5 border-t border-white/10">
                 <span className="flex items-center gap-1.5">
-                  <Receipt className="w-4 h-4 text-jamanvar-saffron-400" />
+                  <Receipt className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-jamanvar-saffron-400" />
                   Total Bill
                 </span>
-                <span className="text-jamanvar-saffron-400 text-lg font-black font-mono">
+                <span className="text-jamanvar-saffron-400 text-base sm:text-lg font-black font-mono">
                   ₹{total}
                 </span>
               </div>
 
               {/* Quick Action Buttons */}
-              <div className="grid grid-cols-2 gap-2 pt-2">
+              <div className="grid grid-cols-2 gap-2 pt-1.5 sm:pt-2">
                 <button
                   onClick={handleOpenBill}
-                  className="py-2.5 px-3 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer border border-white/10 hover:border-jamanvar-saffron-500/50"
+                  className="py-2 sm:py-2.5 px-2.5 sm:px-3 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-[11px] sm:text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer border border-white/10 hover:border-jamanvar-saffron-500/50"
                 >
-                  <Printer className="w-3.5 h-3.5 text-white/80" />
-                  <span>Print KOT / Bill</span>
+                  <Printer className="w-3.5 h-3.5 text-white/80 shrink-0" />
+                  <span className="truncate">Print Bill</span>
                 </button>
                 <button
                   onClick={() => {
@@ -439,10 +441,10 @@ export function HeroProductVisual() {
                     handleOpenBill();
                     setTimeout(() => setIsSettled(false), 2500);
                   }}
-                  className="py-2.5 px-3 rounded-xl bg-jamanvar-saffron-500 hover:bg-jamanvar-saffron-600 text-white font-black text-xs shadow-saffron-sm flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                  className="py-2 sm:py-2.5 px-2.5 sm:px-3 rounded-xl bg-jamanvar-saffron-500 hover:bg-jamanvar-saffron-600 text-white font-black text-[11px] sm:text-xs shadow-saffron-sm flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
                 >
-                  <CreditCard className="w-3.5 h-3.5" />
-                  <span>{isSettled ? "Settled ✓" : "Settle & Pay"}</span>
+                  <CreditCard className="w-3.5 h-3.5 shrink-0" />
+                  <span className="truncate">{isSettled ? "Settled ✓" : "Settle & Pay"}</span>
                 </button>
               </div>
             </div>
@@ -450,11 +452,11 @@ export function HeroProductVisual() {
         </div>
       </motion.div>
 
-      {/* Floating Micro-Badges */}
+      {/* Floating Micro-Badges on desktop */}
       <motion.div
         animate={{ y: [0, -6, 0] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        className="hidden md:flex absolute -bottom-3 -left-4 bg-jamanvar-cream-50 border border-jamanvar-navy-900/10 p-3.5 rounded-2xl shadow-xl items-center gap-3 z-20 text-jamanvar-navy-900"
+        className="hidden lg:flex absolute -bottom-3 -left-4 bg-jamanvar-cream-50 border border-jamanvar-navy-900/10 p-3.5 rounded-2xl shadow-xl items-center gap-3 z-20 text-jamanvar-navy-900"
       >
         <div className="w-9 h-9 rounded-xl bg-jamanvar-green-100 text-jamanvar-green-700 flex items-center justify-center">
           <CheckCircle2 className="w-5 h-5" />
@@ -468,7 +470,7 @@ export function HeroProductVisual() {
       <motion.div
         animate={{ y: [0, 6, 0] }}
         transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        className="hidden md:flex absolute -top-4 -right-4 bg-jamanvar-cream-50 border border-jamanvar-navy-900/10 p-3.5 rounded-2xl shadow-xl items-center gap-3 z-20 text-jamanvar-navy-900"
+        className="hidden lg:flex absolute -top-4 -right-4 bg-jamanvar-cream-50 border border-jamanvar-navy-900/10 p-3.5 rounded-2xl shadow-xl items-center gap-3 z-20 text-jamanvar-navy-900"
       >
         <div className="w-9 h-9 rounded-xl bg-jamanvar-saffron-100 text-jamanvar-saffron-700 flex items-center justify-center">
           <TrendingUp className="w-5 h-5" />

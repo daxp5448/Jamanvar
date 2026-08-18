@@ -12,7 +12,6 @@ import { OwnerSection } from "@/components/OwnerSection";
 import { RoiCalculator } from "@/components/RoiCalculator";
 import { AnalyticsSection } from "@/components/AnalyticsSection";
 import { HardwareSection } from "@/components/HardwareSection";
-import { RestaurateurStories } from "@/components/RestaurateurStories";
 import { FinalCTA } from "@/components/FinalCTA";
 import { Footer } from "@/components/Footer";
 import { DemoModal } from "@/components/DemoModal";
@@ -96,9 +95,6 @@ export default function Home() {
 
       {/* Section: Hardware Ecosystem & Offline Resilience */}
       <HardwareSection />
-
-      {/* Section: Restaurateur Testimonials & Case Studies */}
-      <RestaurateurStories />
 
       {/* Section: Final Royal Gujarati CTA */}
       <FinalCTA onOpenDemo={handleOpenDemo} />

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import {
   Receipt,
@@ -8,42 +8,48 @@ import {
   LayoutGrid,
   Boxes,
   TrendingUp,
-  HeartHandshake,
   Clock,
   CheckCircle2,
   AlertTriangle,
-  ArrowUpRight,
-  UserCheck,
-  Percent,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export function Features() {
-  const [activeTabTable, setActiveTabTable] = useState("T-07");
-
   return (
-    <section id="features" className="py-20 md:py-32 bg-jamanvar-cream-100 relative">
+    <section id="features" className="py-16 md:py-32 bg-jamanvar-cream-100 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Editorial Section Header */}
-        <div className="max-w-3xl mb-16 md:mb-20">
-          <div className="inline-block text-xs font-extrabold uppercase tracking-widest text-jamanvar-saffron-600 mb-3">
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.05 }}
+          transition={{ duration: 0.4 }}
+          className="max-w-3xl mb-12 md:mb-20"
+        >
+          <div className="inline-block text-xs font-extrabold uppercase tracking-widest text-jamanvar-saffron-600 mb-2 sm:mb-3">
             ONE SYSTEM
           </div>
           <h2 className="text-3xl sm:text-5xl font-extrabold text-jamanvar-navy-950 tracking-tight leading-tight">
             Everything your restaurant needs.
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-jamanvar-navy-900/70 max-w-xl">
+          <p className="mt-3 sm:mt-4 text-sm sm:text-lg text-jamanvar-navy-900/70 max-w-xl">
             Replace fragmented apps and paper registers with an unified operating system built for Indian hospitality speeds.
           </p>
-        </div>
+        </motion.div>
 
         {/* Asymmetric Editorial Feature Layout */}
-        <div className="space-y-12 md:space-y-16">
+        <div className="space-y-8 sm:space-y-12 md:space-y-16">
           {/* Row 1: Large POS & Billing (7 cols) + Kitchen (5 cols) */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-stretch">
             {/* Feature 01: POS & Billing */}
-            <div className="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 border border-jamanvar-navy-900/10 shadow-card flex flex-col justify-between">
-              <div className="mb-6">
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.05 }}
+              transition={{ duration: 0.4 }}
+              className="lg:col-span-7 bg-white rounded-3xl p-5 sm:p-8 border border-jamanvar-navy-900/10 shadow-card flex flex-col justify-between"
+            >
+              <div className="mb-5 sm:mb-6">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-xs font-mono font-bold text-jamanvar-navy-900/40">01 / BILLING</span>
                   <span className="text-[10px] font-bold uppercase tracking-wider bg-jamanvar-saffron-100 text-jamanvar-saffron-800 px-2.5 py-1 rounded-full">
@@ -51,45 +57,51 @@ export function Features() {
                   </span>
                 </div>
                 <h3 className="text-2xl sm:text-3xl font-extrabold text-jamanvar-navy-950 mb-2">
-                  POS & Billing
+                  POS &amp; Billing
                 </h3>
-                <p className="text-sm text-jamanvar-navy-900/70 leading-relaxed">
+                <p className="text-xs sm:text-sm text-jamanvar-navy-900/70 leading-relaxed">
                   Fast, simple billing designed for busy service hours. Split checks, apply customizable tax slabs, and punch items with zero lag.
                 </p>
               </div>
 
               {/* Realistic Micro Billing UI */}
-              <div className="bg-jamanvar-cream-50 rounded-2xl p-4 border border-jamanvar-navy-900/10 text-xs">
-                <div className="flex items-center justify-between pb-3 border-b border-jamanvar-navy-900/10 font-mono text-[11px] text-jamanvar-navy-900/60">
+              <div className="bg-jamanvar-cream-50 rounded-2xl p-3.5 sm:p-4 border border-jamanvar-navy-900/10 text-xs">
+                <div className="flex items-center justify-between pb-2.5 sm:pb-3 border-b border-jamanvar-navy-900/10 font-mono text-[10px] sm:text-[11px] text-jamanvar-navy-900/60">
                   <span>INVOICE #JAM-8924</span>
                   <span>TABLE 12 (DINE-IN)</span>
                 </div>
 
                 <div className="py-2.5 space-y-2">
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-center text-xs">
                     <span className="font-semibold text-jamanvar-navy-900">2 × Paneer Butter Masala</span>
                     <span className="font-mono text-jamanvar-navy-900">₹840</span>
                   </div>
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-center text-xs">
                     <span className="font-semibold text-jamanvar-navy-900">4 × Garlic Butter Naan</span>
                     <span className="font-mono text-jamanvar-navy-900">₹320</span>
                   </div>
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-center text-xs">
                     <span className="font-semibold text-jamanvar-navy-900">2 × Mango Lassi</span>
                     <span className="font-mono text-jamanvar-navy-900">₹280</span>
                   </div>
                 </div>
 
-                <div className="pt-2.5 border-t border-jamanvar-navy-900/10 flex justify-between items-center font-bold text-sm text-jamanvar-navy-950">
+                <div className="pt-2.5 border-t border-jamanvar-navy-900/10 flex justify-between items-center font-bold text-xs sm:text-sm text-jamanvar-navy-950">
                   <span>Total Incl. GST (5%)</span>
                   <span className="text-jamanvar-saffron-600 font-extrabold font-mono">₹1,512</span>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Feature 02: Kitchen Display & KOT */}
-            <div className="lg:col-span-5 bg-jamanvar-navy-950 text-white rounded-3xl p-6 sm:p-8 border border-white/10 shadow-card flex flex-col justify-between">
-              <div className="mb-6">
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.05 }}
+              transition={{ duration: 0.4 }}
+              className="lg:col-span-5 bg-jamanvar-navy-950 text-white rounded-3xl p-5 sm:p-8 border border-white/10 shadow-card flex flex-col justify-between"
+            >
+              <div className="mb-5 sm:mb-6">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-xs font-mono font-bold text-white/40">02 / KITCHEN</span>
                   <span className="text-[10px] font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 px-2.5 py-1 rounded-full">
@@ -99,19 +111,19 @@ export function Features() {
                 <h3 className="text-2xl sm:text-3xl font-extrabold text-white mb-2">
                   Kitchen
                 </h3>
-                <p className="text-sm text-white/70 leading-relaxed">
+                <p className="text-xs sm:text-sm text-white/70 leading-relaxed">
                   Send every order to the right place without unnecessary communication gaps. Orders route to kitchen screens and thermal printers instantly.
                 </p>
               </div>
 
               {/* Realistic Micro Kitchen Ticket UI */}
-              <div className="bg-jamanvar-navy-900 rounded-2xl p-4 border border-white/10 text-xs">
-                <div className="flex items-center justify-between pb-2.5 border-b border-white/10">
+              <div className="bg-jamanvar-navy-900 rounded-2xl p-3.5 sm:p-4 border border-white/10 text-xs">
+                <div className="flex items-center justify-between pb-2 sm:pb-2.5 border-b border-white/10">
                   <div className="flex items-center gap-2">
                     <span className="px-2 py-0.5 rounded bg-jamanvar-saffron-500 text-white font-mono text-[10px] font-bold">
                       KOT #148
                     </span>
-                    <span className="font-bold text-white">Table T-07</span>
+                    <span className="font-bold text-white text-xs">Table T-07</span>
                   </div>
                   <div className="flex items-center gap-1 text-[10px] text-amber-300 font-mono">
                     <Clock className="w-3 h-3" />
@@ -137,14 +149,20 @@ export function Features() {
                   </span>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
 
           {/* Row 2: Tables (5 cols) + Inventory (7 cols) */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-stretch">
             {/* Feature 03: Tables & Floor Management */}
-            <div className="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-8 border border-jamanvar-navy-900/10 shadow-card flex flex-col justify-between">
-              <div className="mb-6">
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.05 }}
+              transition={{ duration: 0.4 }}
+              className="lg:col-span-5 bg-white rounded-3xl p-5 sm:p-8 border border-jamanvar-navy-900/10 shadow-card flex flex-col justify-between"
+            >
+              <div className="mb-5 sm:mb-6">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-xs font-mono font-bold text-jamanvar-navy-900/40">03 / FLOOR</span>
                   <span className="text-[10px] font-bold uppercase tracking-wider bg-jamanvar-green-100 text-jamanvar-green-800 px-2.5 py-1 rounded-full">
@@ -154,7 +172,7 @@ export function Features() {
                 <h3 className="text-2xl sm:text-3xl font-extrabold text-jamanvar-navy-950 mb-2">
                   Tables
                 </h3>
-                <p className="text-sm text-jamanvar-navy-900/70 leading-relaxed">
+                <p className="text-xs sm:text-sm text-jamanvar-navy-900/70 leading-relaxed">
                   See table status, orders and service flow at a glance. Merge tables, switch sections, and manage reservations smoothly.
                 </p>
               </div>
@@ -184,11 +202,17 @@ export function Features() {
                   ))}
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Feature 04: Inventory & Stock */}
-            <div className="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 border border-jamanvar-navy-900/10 shadow-card flex flex-col justify-between">
-              <div className="mb-6">
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.05 }}
+              transition={{ duration: 0.4 }}
+              className="lg:col-span-7 bg-white rounded-3xl p-5 sm:p-8 border border-jamanvar-navy-900/10 shadow-card flex flex-col justify-between"
+            >
+              <div className="mb-5 sm:mb-6">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-xs font-mono font-bold text-jamanvar-navy-900/40">04 / INVENTORY</span>
                   <span className="text-[10px] font-bold uppercase tracking-wider bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full">
@@ -198,13 +222,13 @@ export function Features() {
                 <h3 className="text-2xl sm:text-3xl font-extrabold text-jamanvar-navy-950 mb-2">
                   Inventory
                 </h3>
-                <p className="text-sm text-jamanvar-navy-900/70 leading-relaxed">
+                <p className="text-xs sm:text-sm text-jamanvar-navy-900/70 leading-relaxed">
                   Know what is moving, what is running low and what needs attention. Automatically deduct raw ingredients per recipe as orders are punched.
                 </p>
               </div>
 
               {/* Realistic Micro Inventory Stock Table */}
-              <div className="bg-jamanvar-cream-50 rounded-2xl p-4 border border-jamanvar-navy-900/10">
+              <div className="bg-jamanvar-cream-50 rounded-2xl p-3.5 sm:p-4 border border-jamanvar-navy-900/10">
                 <div className="grid grid-cols-12 text-[10px] font-bold uppercase tracking-wider text-jamanvar-navy-900/50 pb-2 border-b border-jamanvar-navy-900/10">
                   <span className="col-span-5">Raw Material</span>
                   <span className="col-span-3 text-right">Available</span>
@@ -213,8 +237,8 @@ export function Features() {
 
                 <div className="divide-y divide-jamanvar-navy-900/5 text-xs py-1">
                   <div className="grid grid-cols-12 py-2 items-center">
-                    <span className="col-span-5 font-semibold text-jamanvar-navy-900">Malai Paneer</span>
-                    <span className="col-span-3 text-right font-mono">14.5 kg</span>
+                    <span className="col-span-5 font-semibold text-jamanvar-navy-900 text-xs truncate">Malai Paneer</span>
+                    <span className="col-span-3 text-right font-mono text-xs">14.5 kg</span>
                     <div className="col-span-4 flex justify-end">
                       <span className="inline-flex items-center gap-1 text-[10px] font-bold text-jamanvar-green-700 bg-jamanvar-green-100 px-2 py-0.5 rounded-full">
                         <CheckCircle2 className="w-2.5 h-2.5" /> Optimal
@@ -223,34 +247,40 @@ export function Features() {
                   </div>
 
                   <div className="grid grid-cols-12 py-2 items-center">
-                    <span className="col-span-5 font-semibold text-jamanvar-navy-900">Amul Butter (Unsalted)</span>
-                    <span className="col-span-3 text-right font-mono">4.2 kg</span>
+                    <span className="col-span-5 font-semibold text-jamanvar-navy-900 text-xs truncate">Amul Butter</span>
+                    <span className="col-span-3 text-right font-mono text-xs">4.2 kg</span>
                     <div className="col-span-4 flex justify-end">
                       <span className="inline-flex items-center gap-1 text-[10px] font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded-full">
-                        <AlertTriangle className="w-2.5 h-2.5" /> Reorder Soon
+                        <AlertTriangle className="w-2.5 h-2.5" /> Reorder
                       </span>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-12 py-2 items-center">
-                    <span className="col-span-5 font-semibold text-jamanvar-navy-900">Fresh Mint & Coriander</span>
-                    <span className="col-span-3 text-right font-mono">0.8 kg</span>
+                    <span className="col-span-5 font-semibold text-jamanvar-navy-900 text-xs truncate">Fresh Mint</span>
+                    <span className="col-span-3 text-right font-mono text-xs">0.8 kg</span>
                     <div className="col-span-4 flex justify-end">
                       <span className="inline-flex items-center gap-1 text-[10px] font-bold text-red-700 bg-red-100 px-2 py-0.5 rounded-full">
-                        Critical Low
+                        Low
                       </span>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
 
           {/* Row 3: Analytics (7 cols) + Customers (5 cols) */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-stretch">
             {/* Feature 05: Analytics */}
-            <div className="lg:col-span-7 bg-jamanvar-navy-950 text-white rounded-3xl p-6 sm:p-8 border border-white/10 shadow-card flex flex-col justify-between">
-              <div className="mb-6">
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.05 }}
+              transition={{ duration: 0.4 }}
+              className="lg:col-span-7 bg-jamanvar-navy-950 text-white rounded-3xl p-5 sm:p-8 border border-white/10 shadow-card flex flex-col justify-between"
+            >
+              <div className="mb-5 sm:mb-6">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-xs font-mono font-bold text-white/40">05 / ANALYTICS</span>
                   <span className="text-[10px] font-bold uppercase tracking-wider bg-jamanvar-saffron-500/20 text-jamanvar-saffron-300 px-2.5 py-1 rounded-full">
@@ -260,25 +290,25 @@ export function Features() {
                 <h3 className="text-2xl sm:text-3xl font-extrabold text-white mb-2">
                   Analytics
                 </h3>
-                <p className="text-sm text-white/70 leading-relaxed">
+                <p className="text-xs sm:text-sm text-white/70 leading-relaxed">
                   Turn everyday transactions into useful business insights. Track peak dining hours, best-selling dishes, and labor cost ratios from anywhere.
                 </p>
               </div>
 
               {/* Realistic Micro Sales Graph & Bars */}
-              <div className="bg-jamanvar-navy-900 rounded-2xl p-4 border border-white/10">
+              <div className="bg-jamanvar-navy-900 rounded-2xl p-3.5 sm:p-4 border border-white/10">
                 <div className="flex justify-between items-center mb-3">
                   <div>
                     <span className="text-[10px] text-white/50 uppercase tracking-wider block">Today's Sales Trend</span>
-                    <span className="text-xl font-black text-white">₹48,250</span>
+                    <span className="text-lg sm:text-xl font-black text-white">₹48,250</span>
                   </div>
-                  <span className="text-xs font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">
+                  <span className="text-[10px] sm:text-xs font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">
                     +18.4% vs Last Week
                   </span>
                 </div>
 
                 {/* Hourly Sales Bar Chart visual */}
-                <div className="flex items-end gap-2 h-20 pt-2 border-b border-white/10 pb-2">
+                <div className="flex items-end gap-1.5 sm:gap-2 h-16 sm:h-20 pt-2 border-b border-white/10 pb-2">
                   {[35, 45, 60, 80, 50, 40, 65, 95, 100, 75, 45].map((height, i) => (
                     <div key={i} className="flex-1 flex flex-col items-center gap-1 h-full justify-end">
                       <div
@@ -298,11 +328,17 @@ export function Features() {
                   <span>11 PM</span>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Feature 06: Customers & CRM */}
-            <div className="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-8 border border-jamanvar-navy-900/10 shadow-card flex flex-col justify-between">
-              <div className="mb-6">
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.05 }}
+              transition={{ duration: 0.4 }}
+              className="lg:col-span-5 bg-white rounded-3xl p-5 sm:p-8 border border-jamanvar-navy-900/10 shadow-card flex flex-col justify-between"
+            >
+              <div className="mb-5 sm:mb-6">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-xs font-mono font-bold text-jamanvar-navy-900/40">06 / CUSTOMERS</span>
                   <span className="text-[10px] font-bold uppercase tracking-wider bg-jamanvar-cream-200 text-jamanvar-navy-900 px-2.5 py-1 rounded-full">
@@ -312,44 +348,44 @@ export function Features() {
                 <h3 className="text-2xl sm:text-3xl font-extrabold text-jamanvar-navy-950 mb-2">
                   Customers
                 </h3>
-                <p className="text-sm text-jamanvar-navy-900/70 leading-relaxed">
+                <p className="text-xs sm:text-sm text-jamanvar-navy-900/70 leading-relaxed">
                   Understand your customers and build stronger relationships. Track favorite dishes, birthdays, anniversary dates, and loyalty points automatically.
                 </p>
               </div>
 
               {/* Realistic Customer Profile Card */}
-              <div className="bg-jamanvar-cream-50 rounded-2xl p-4 border border-jamanvar-navy-900/10 text-xs">
-                <div className="flex items-center gap-3 pb-3 border-b border-jamanvar-navy-900/10">
-                  <div className="w-10 h-10 rounded-full bg-jamanvar-navy-900 text-white font-bold flex items-center justify-center text-sm">
+              <div className="bg-jamanvar-cream-50 rounded-2xl p-3.5 sm:p-4 border border-jamanvar-navy-900/10 text-xs">
+                <div className="flex items-center gap-3 pb-2.5 sm:pb-3 border-b border-jamanvar-navy-900/10">
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-jamanvar-navy-900 text-white font-bold flex items-center justify-center text-xs sm:text-sm shrink-0">
                     RD
                   </div>
-                  <div>
-                    <div className="font-bold text-jamanvar-navy-950 text-sm flex items-center gap-1.5">
-                      <span>Rohan Desai</span>
-                      <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-jamanvar-saffron-100 text-jamanvar-saffron-700">
+                  <div className="min-w-0">
+                    <div className="font-bold text-jamanvar-navy-950 text-xs sm:text-sm flex items-center gap-1.5">
+                      <span className="truncate">Rohan Desai</span>
+                      <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-jamanvar-saffron-100 text-jamanvar-saffron-700 shrink-0">
                         GOLD VIP
                       </span>
                     </div>
-                    <span className="text-[10px] text-jamanvar-navy-900/60">14 visits • ₹28,400 spent</span>
+                    <span className="text-[10px] text-jamanvar-navy-900/60 truncate block">14 visits • ₹28,400 spent</span>
                   </div>
                 </div>
 
                 <div className="pt-2.5 space-y-1.5 text-[11px] text-jamanvar-navy-900/80">
                   <div className="flex justify-between">
                     <span className="text-jamanvar-navy-900/50">Favorite Dish:</span>
-                    <span className="font-medium text-jamanvar-navy-900">Paneer Tikka Angara</span>
+                    <span className="font-medium text-jamanvar-navy-900 truncate">Paneer Tikka Angara</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-jamanvar-navy-900/50">Last Visit:</span>
-                    <span className="font-medium text-jamanvar-navy-900">3 days ago (Table 07)</span>
+                    <span className="font-medium text-jamanvar-navy-900 truncate">3 days ago (Table 07)</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-jamanvar-navy-900/50">Loyalty Balance:</span>
-                    <span className="font-bold text-jamanvar-saffron-600">420 Pts (₹420)</span>
+                    <span className="font-bold text-jamanvar-saffron-600 font-mono">420 Pts (₹420)</span>
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
