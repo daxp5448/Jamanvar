@@ -3,16 +3,19 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface NavbarProps {
-  onOpenDemo: () => void;
+  onOpenDemo?: () => void;
 }
 
 export function Navbar({ onOpenDemo }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,19 +31,28 @@ export function Navbar({ onOpenDemo }: NavbarProps) {
   }, []);
 
   const navLinks = [
-    { name: "Product", href: "#product" },
-    { name: "Features", href: "#features" },
-    { name: "How It Works", href: "#how-it-works" },
-    { name: "Analytics", href: "#analytics" },
-    { name: "Hardware", href: "#hardware" },
+    { name: "Features", href: "/features" },
+    { name: "Pricing", href: "/pricing" },
+    { name: "How It Works", href: isHomePage ? "#how-it-works" : "/#how-it-works" },
+    { name: "About", href: "/about" },
+    { name: "Support", href: "/support" },
+    { name: "Contact", href: "/contact" },
   ];
+
+  const handleDemoClick = () => {
+    if (onOpenDemo) {
+      onOpenDemo();
+    } else {
+      window.location.href = "/contact";
+    }
+  };
 
   return (
     <>
       <header
         className={cn(
           "fixed top-0 left-0 right-0 z-40 transition-all duration-300 px-4 sm:px-6 lg:px-8",
-          isScrolled
+          isScrolled || !isHomePage
             ? "py-2 bg-jamanvar-cream-100/95 backdrop-blur-md border-b border-jamanvar-navy-900/10 shadow-subtle"
             : "py-3.5 bg-transparent"
         )}
@@ -65,28 +77,36 @@ export function Navbar({ onOpenDemo }: NavbarProps) {
 
           {/* CENTER: Navigation Links */}
           <nav className="hidden md:flex items-center gap-1 lg:gap-2 px-4 py-1.5 rounded-full bg-white/85 backdrop-blur-md border border-jamanvar-navy-900/8 shadow-subtle">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="px-3.5 py-1.5 text-xs lg:text-sm font-semibold text-jamanvar-navy-900/80 hover:text-jamanvar-navy-950 hover:bg-jamanvar-cream-200/80 rounded-full transition-all duration-150"
-              >
-                {link.name}
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className={cn(
+                    "px-3.5 py-1.5 text-xs lg:text-sm font-semibold rounded-full transition-all duration-150",
+                    isActive
+                      ? "text-jamanvar-saffron-700 bg-jamanvar-saffron-50 font-bold"
+                      : "text-jamanvar-navy-900/80 hover:text-jamanvar-navy-950 hover:bg-jamanvar-cream-200/80"
+                  )}
+                >
+                  {link.name}
+                </Link>
+              );
+            })}
           </nav>
 
           {/* RIGHT: Login & Book a Demo */}
           <div className="hidden md:flex items-center gap-3">
-            <button
-              onClick={onOpenDemo}
+            <Link
+              href="/contact"
               className="text-xs lg:text-sm font-semibold text-jamanvar-navy-900/80 hover:text-jamanvar-navy-950 px-3 py-2 transition-colors cursor-pointer"
             >
               Partner Login
-            </button>
+            </Link>
 
             <button
-              onClick={onOpenDemo}
+              onClick={handleDemoClick}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-jamanvar-navy-900 hover:bg-jamanvar-navy-800 text-white text-xs lg:text-sm font-bold shadow-sm transition-all duration-200 hover:shadow hover:scale-[1.02] active:scale-[0.98] cursor-pointer border border-jamanvar-saffron-500/30"
             >
               <span>Book a Demo</span>
@@ -134,14 +154,19 @@ export function Navbar({ onOpenDemo }: NavbarProps) {
 
               <div className="flex flex-col gap-2 py-6">
                 {navLinks.map((link) => (
-                  <a
+                  <Link
                     key={link.name}
                     href={link.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="px-3 py-2.5 text-sm font-semibold text-jamanvar-navy-900 hover:bg-jamanvar-cream-200 rounded-lg transition-colors"
+                    className={cn(
+                      "px-3 py-2.5 text-sm font-semibold rounded-lg transition-colors",
+                      pathname === link.href
+                        ? "text-jamanvar-saffron-700 bg-jamanvar-saffron-50 font-bold"
+                        : "text-jamanvar-navy-900 hover:bg-jamanvar-cream-200"
+                    )}
                   >
                     {link.name}
-                  </a>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -150,7 +175,7 @@ export function Navbar({ onOpenDemo }: NavbarProps) {
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
-                  onOpenDemo();
+                  handleDemoClick();
                 }}
                 className="w-full py-3 px-4 rounded-xl bg-jamanvar-saffron-500 hover:bg-jamanvar-saffron-600 text-white font-bold text-sm shadow-saffron flex items-center justify-center gap-2 cursor-pointer"
               >
@@ -158,15 +183,13 @@ export function Navbar({ onOpenDemo }: NavbarProps) {
                 <ArrowRight className="w-4 h-4" />
               </button>
 
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenDemo();
-                }}
-                className="w-full py-2.5 px-4 rounded-xl bg-white border border-jamanvar-navy-900/15 text-jamanvar-navy-900 font-semibold text-sm text-center"
+              <Link
+                href="/contact"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full block py-2.5 px-4 rounded-xl bg-white border border-jamanvar-navy-900/15 text-jamanvar-navy-900 font-semibold text-sm text-center"
               >
-                Partner Login
-              </button>
+                Partner Login / Support
+              </Link>
             </div>
           </div>
         </div>

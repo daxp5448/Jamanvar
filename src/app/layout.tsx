@@ -31,24 +31,25 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
-  title: "Jamanvar POS | Modern Restaurant Management & Billing Software",
+  title: "Jamanvar POS | Restaurant POS & Management Software in India",
   description:
-    "Run your restaurant without the chaos. Jamanvar brings billing, orders, tables, kitchen operations, inventory and insights together in one simple, premium system.",
+    "Jamanvar is restaurant POS and operations management software for billing, kitchen display, table management, inventory, analytics and restaurant operations.",
   keywords: [
-    "Restaurant POS",
+    "Restaurant POS India",
     "Restaurant Management Software",
     "Billing Software India",
     "Kitchen Display System KDS",
-    "Table Management",
+    "Table Floor Management",
     "Restaurant Inventory Management",
     "Jamanvar POS",
     "Kelviontech",
+    "Mihir Manishbhai Darji",
   ],
-  authors: [{ name: "Kelviontech" }],
+  authors: [{ name: "Kelviontech (Prop. Mihir Manishbhai Darji)" }],
   openGraph: {
-    title: "Jamanvar POS | Run your restaurant without the chaos",
+    title: "Jamanvar POS | Restaurant POS & Management Software in India",
     description:
-      "Modern restaurant POS and management software crafted for Indian hospitality. Faster billing, kitchen tickets, table floors, and live analytics.",
+      "Jamanvar is restaurant POS and operations management software for billing, kitchen display, table management, inventory, analytics and restaurant operations.",
     type: "website",
     locale: "en_IN",
     images: [

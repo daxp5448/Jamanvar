@@ -387,6 +387,17 @@ export function Features() {
               </div>
             </motion.div>
           </div>
+
+          {/* Bottom link to full features page */}
+          <div className="pt-8 text-center">
+            <a
+              href="/features"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-jamanvar-navy-900 hover:bg-jamanvar-navy-800 text-white font-bold text-xs sm:text-sm shadow-subtle transition-all"
+            >
+              <span>Explore Complete Module Specifications &amp; Architecture</span>
+              <span className="text-jamanvar-saffron-400">→</span>
+            </a>
+          </div>
         </div>
       </div>
     </section>

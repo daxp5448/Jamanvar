@@ -250,22 +250,46 @@ export function DemoModal({ isOpen, onClose }: DemoModalProps) {
                   </form>
                 </div>
               ) : (
-                <div className="py-8 text-center">
-                  <div className="w-16 h-16 rounded-full bg-jamanvar-green-100 text-jamanvar-green-600 mx-auto flex items-center justify-center mb-4">
-                    <CheckCircle2 className="w-10 h-10" />
+                <div className="py-6 text-center">
+                  <div className="w-14 h-14 rounded-full bg-emerald-100 text-emerald-600 mx-auto flex items-center justify-center mb-3">
+                    <CheckCircle2 className="w-8 h-8" />
                   </div>
-                  <h3 className="text-2xl font-bold text-jamanvar-navy-900 mb-2">
-                    Demo Scheduled Successfully!
+                  <h3 className="text-xl sm:text-2xl font-bold text-jamanvar-navy-950 mb-2">
+                    Demo Request Received!
                   </h3>
-                  <p className="text-sm text-jamanvar-navy-900/70 max-w-md mx-auto mb-6">
-                    Thank you, <span className="font-semibold text-jamanvar-navy-900">{formData.name}</span>. Our specialist has received the details for <span className="font-semibold text-jamanvar-navy-900">{formData.restaurantName || "your restaurant"}</span> and will reach out to you on <span className="font-semibold text-jamanvar-navy-900">{formData.phone}</span> shortly.
+                  <p className="text-xs sm:text-sm text-jamanvar-navy-900/75 max-w-md mx-auto mb-6">
+                    Thank you, <span className="font-semibold text-jamanvar-navy-950">{formData.name}</span>. Our specialist has received your details for <span className="font-semibold text-jamanvar-navy-950">{formData.restaurantName || "your restaurant"}</span>.
                   </p>
+
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-4">
+                    <a
+                      href={`https://wa.me/918140267475?text=${encodeURIComponent(
+                        `Hi Jamanvar Team, I'm ${formData.name} from ${formData.restaurantName || "my restaurant"} (${formData.city || "India"}). I just requested a demo.`
+                      )}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition-colors flex items-center justify-center gap-2"
+                    >
+                      <span>Connect via WhatsApp Now</span>
+                    </a>
+
+                    <a
+                      href={`mailto:kelviontech@gmail.com?subject=Demo Inquiry - ${encodeURIComponent(
+                        formData.restaurantName || formData.name
+                      )}&body=${encodeURIComponent(
+                        `Name: ${formData.name}\nRestaurant: ${formData.restaurantName}\nPhone: ${formData.phone}\nOutlet: ${formData.outletType}\nTables: ${formData.tableCount}\nCity: ${formData.city}`
+                      )}`}
+                      className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-jamanvar-navy-900 hover:bg-jamanvar-navy-800 text-white text-xs font-bold transition-colors flex items-center justify-center gap-2"
+                    >
+                      <span>Email Support Team</span>
+                    </a>
+                  </div>
 
                   <button
                     onClick={handleReset}
-                    className="py-2.5 px-6 rounded-xl bg-jamanvar-navy-900 text-white text-xs font-semibold hover:bg-jamanvar-navy-800 transition-colors"
+                    className="text-xs text-jamanvar-navy-900/60 hover:text-jamanvar-navy-950 underline pt-2 block mx-auto"
                   >
-                    Done
+                    Close Window
                   </button>
                 </div>
               )}

@@ -155,6 +155,17 @@ export function HardwareSection() {
                 Internet drops? Keep taking orders and printing thermal bills without interruption.
               </div>
             </motion.div>
+
+            {/* Link to Hardware Pricing */}
+            <div className="pt-3">
+              <a
+                href="/pricing#hardware"
+                className="w-full py-3 px-4 rounded-xl bg-jamanvar-cream-200 hover:bg-jamanvar-cream-300 text-jamanvar-navy-950 font-bold text-xs flex items-center justify-center gap-2 transition-colors border border-jamanvar-navy-900/10"
+              >
+                <span>View Complete Hardware Kits &amp; Pricing</span>
+                <span className="text-jamanvar-saffron-600">→</span>
+              </a>
+            </div>
           </div>
 
           {/* Right Polished Branded Hardware Preview (7 cols) */}
