@@ -88,7 +88,11 @@ docs to any gateway.
 - [x] Legal/registered name added to `jamanvar.kelviontech.in` footer
       ([src/components/Footer.tsx](src/components/Footer.tsx)) — now reads
       "a product of Kelvion Tech (Kelviontech) — Prop. Mihir Manishbhai
-      Darji, Udyam Reg. No. UDYAM-GJ-01-0669539." Done 2026-09-10.
+      Darji." Done 2026-09-10. (Udyam registration number was added then
+      removed the same day — Cashfree's requirement is just the registered
+      *name* on the site, not the registration number; publicly listing the
+      number wasn't necessary. Keep it in this doc for reference:
+      UDYAM-GJ-01-0669539.)
 - [ ] Reconcile "KELVION TECH" (Udyam) vs. "Kelviontech" (brand) spelling
       mismatch — either get Udyam corrected or treat as intentionally same
       entity, consistently documented.

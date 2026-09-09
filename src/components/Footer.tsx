@@ -94,7 +94,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-white/40">
           <div>
-            © 2026 Jamanvar, a product of Kelvion Tech (Kelviontech) — Prop. Mihir Manishbhai Darji, Udyam Reg. No. UDYAM-GJ-01-0669539. All rights reserved. Made with pride for Indian Restaurants.
+            © 2026 Jamanvar, a product of Kelvion Tech (Kelviontech) — Prop. Mihir Manishbhai Darji. All rights reserved. Made with pride for Indian Restaurants.
           </div>
 
           <button
