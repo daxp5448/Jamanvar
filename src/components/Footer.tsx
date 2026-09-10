@@ -48,7 +48,6 @@ export function Footer() {
                 <ShieldCheck className="w-3.5 h-3.5" />
                 <span>KELVION TECH (Kelviontech)</span>
               </div>
-              <div>Proprietor: <span className="text-white font-medium">Mihir Manishbhai Darji</span></div>
               <div className="flex items-center gap-1 text-white/70 text-[11px] pt-0.5">
                 <Mail className="w-3 h-3 text-jamanvar-saffron-400 shrink-0" />
                 <a href="mailto:kelviontech@gmail.com" className="hover:text-white underline">
@@ -120,7 +119,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-white/50">
           <div>
-            © 2026 Jamanvar. A product of <span className="text-white font-medium">KELVION TECH (Kelviontech)</span> — Prop. Mihir Manishbhai Darji. Ahmedabad, Gujarat, India. All rights reserved.
+            © 2026 Jamanvar. A product of <span className="text-white font-medium">KELVION TECH (Kelviontech)</span>. Ahmedabad, Gujarat, India. All rights reserved.
           </div>
 
           <button
