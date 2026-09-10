@@ -59,7 +59,7 @@ export default function TermsAndConditionsPage() {
               2. Description of Software &amp; Services
             </h2>
             <p>
-              Jamanvar provides a restaurant management software suite comprising point-of-sale billing, kitchen display systems (KDS), table floor management, raw material recipe inventory tracking, and business analytics. Jamanvar is offered on a Software-as-a-Service (SaaS) subscription model with optional certified hardware procurement assistance.
+              Jamanvar provides a restaurant management software suite comprising point-of-sale billing, kitchen display systems (KDS), table floor management, raw material recipe inventory tracking, and business analytics. Jamanvar is offered on a Software-as-a-Service (SaaS) subscription model with optional tested hardware procurement assistance.
             </p>
           </div>
 
@@ -118,7 +118,7 @@ export default function TermsAndConditionsPage() {
               7. Service Availability &amp; Offline Operations
             </h2>
             <p>
-              While Jamanvar features robust local offline mesh capabilities allowing billing and KOT printing to continue without active broadband internet, cloud analytics synchronization and multi-branch features depend on external internet service providers. We strive for a 99.9% cloud uptime but do not warrant that cloud synchronization will be completely uninterrupted during unforeseen internet backbone outages or scheduled maintenance.
+              While Jamanvar features robust local offline mesh capabilities allowing billing and KOT printing to continue without active broadband internet, cloud analytics synchronization and multi-branch features depend on external internet service providers. We work to keep cloud services reliably available but do not warrant that cloud synchronization will be completely uninterrupted during unforeseen internet backbone outages or scheduled maintenance, and do not currently commit to a specific uptime percentage or service-level agreement (SLA).
             </p>
           </div>
 

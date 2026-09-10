@@ -54,8 +54,8 @@ const FLOW_STEPS = [
     title: "1-Click Split & GST Invoicing",
     desc: "Generate split bills by seat or item, apply discounts with OTP authorization, and auto-calculate CGST/SGST/Service Charge.",
     icon: Receipt,
-    metric: "100%",
-    metricLabel: "GST Compliance",
+    metric: "Auto",
+    metricLabel: "CGST/SGST Calculation",
     detail: "E-invoicing and customized brand receipt headers.",
   },
   {

@@ -83,6 +83,9 @@ export function AnalyticsSection() {
           <p className="mt-4 sm:mt-6 text-sm sm:text-xl text-white/70 leading-relaxed font-normal">
             Jamanvar automatically transforms daily counter receipts into actionable profit insights, eliminating manual spreadsheets forever.
           </p>
+          <p className="mt-2 text-[10px] sm:text-[11px] text-white/40">
+            Sample dashboard preview with illustrative data, shown to demonstrate the reporting layout.
+          </p>
         </motion.div>
 
         {/* Metrics Grid */}

@@ -15,7 +15,7 @@ export function OwnerSection() {
         "Every second saved between taking an order, printing a KOT in the kitchen, and generating a split bill translates into happier guests and faster table turns.",
       icon: Zap,
       stat: "-4.5 min",
-      statLabel: "Average Service Delay",
+      statLabel: "Example Service Delay Improvement*",
     },
     {
       number: "02",
@@ -35,7 +35,7 @@ export function OwnerSection() {
         "Whether opening a second branch, redesigning your menu pricing, or optimizing staff shifts, rely on factual operational data rather than guesswork.",
       icon: TrendingUp,
       stat: "+22%",
-      statLabel: "Average Profit Margin Lift",
+      statLabel: "Example Profit Margin Lift*",
     },
   ];
 
@@ -120,6 +120,10 @@ export function OwnerSection() {
             );
           })}
         </div>
+
+        <p className="mt-4 sm:mt-6 text-[10px] sm:text-[11px] text-jamanvar-navy-900/45 max-w-2xl">
+          *Illustrative example figures based on a sample restaurant operating scenario, not a measured or guaranteed customer result. Actual results vary by restaurant, order volume, staffing, pricing, workflow and other operating conditions.
+        </p>
 
         {/* Gujarati Heritage Hospitality Banner */}
         <motion.div

@@ -69,7 +69,7 @@ export function HardwareSection() {
             Software that fits the counter.
           </h2>
           <p className="text-sm sm:text-lg text-jamanvar-navy-900/70 leading-relaxed">
-            Built for the pace of real Indian restaurants. Run Jamanvar seamlessly on your existing hardware or deploy our certified billing terminals.
+            Built for the pace of real Indian restaurants. Run Jamanvar seamlessly on your existing hardware or deploy our tested billing terminals.
           </p>
         </motion.div>
 

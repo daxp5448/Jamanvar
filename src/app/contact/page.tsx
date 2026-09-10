@@ -91,7 +91,7 @@ export default function ContactPage() {
             <div className="p-6 sm:p-8 rounded-3xl bg-white border border-jamanvar-saffron-500/30 shadow-card">
               <div className="flex items-center gap-2.5 text-jamanvar-saffron-700 font-bold text-xs uppercase tracking-wider mb-4">
                 <ShieldCheck className="w-4 h-4 text-jamanvar-saffron-600" />
-                <span>Verified Legal Entity</span>
+                <span>Business &amp; Legal Information</span>
               </div>
 
               <h2 className="text-xl sm:text-2xl font-black text-jamanvar-navy-950 mb-2">

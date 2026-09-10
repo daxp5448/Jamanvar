@@ -39,7 +39,7 @@ export default function PricingPage() {
         "100% Offline Mode Billing",
         "Standard Email & WhatsApp Support",
       ],
-      ctaText: "Choose Starter Plan (₹5,000/mo)",
+      ctaVerb: "Choose Starter Plan",
       popular: false,
     },
     {
@@ -60,7 +60,7 @@ export default function PricingPage() {
         "100% Offline Resilience + Cloud Sync",
         "Priority Phone, WhatsApp & Onboarding Support",
       ],
-      ctaText: "Start Professional Plan (₹7,500/mo)",
+      ctaVerb: "Start Professional Plan",
       popular: true,
     },
   ];
@@ -177,6 +177,7 @@ export default function PricingPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-stretch">
           {plans.map((plan) => {
             const price = billingCycle === "annual" ? plan.annualPrice : plan.monthlyPrice;
+            const annualTotal = plan.annualPrice * 12;
             return (
               <div
                 key={plan.id}
@@ -228,7 +229,7 @@ export default function PricingPage() {
                           plan.popular ? "text-white/60" : "text-jamanvar-navy-900/60"
                         )}
                       >
-                        / month
+                        / month{billingCycle === "annual" ? " equivalent" : ""}
                       </span>
                     </div>
                     <span
@@ -237,7 +238,9 @@ export default function PricingPage() {
                         plan.popular ? "text-white/50" : "text-jamanvar-navy-900/50"
                       )}
                     >
-                      {billingCycle === "annual" ? "Billed annually • " : "Billed monthly • "}
+                      {billingCycle === "annual"
+                        ? `Billed annually as ₹${annualTotal.toLocaleString("en-IN")}/year • `
+                        : "Billed monthly • "}
                       GST applicable as per law
                     </span>
                   </div>
@@ -277,7 +280,9 @@ export default function PricingPage() {
                       : "bg-jamanvar-navy-900 hover:bg-jamanvar-navy-800 text-white"
                   )}
                 >
-                  <span>{plan.ctaText}</span>
+                  <span>
+                    {plan.ctaVerb} (₹{price.toLocaleString("en-IN")}/mo{billingCycle === "annual" ? ", billed annually" : ""})
+                  </span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
@@ -300,7 +305,7 @@ export default function PricingPage() {
           <div className="max-w-3xl mb-12">
             <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-jamanvar-saffron-600 mb-2">
               <Printer className="w-3.5 h-3.5 text-jamanvar-saffron-500" />
-              <span>CERTIFIED RESTAURANT HARDWARE</span>
+              <span>TESTED RESTAURANT HARDWARE</span>
             </div>
             <h2 className="text-2xl sm:text-4xl font-extrabold text-jamanvar-navy-950 tracking-tight">
               Pre-configured, plug-and-play hardware packages.

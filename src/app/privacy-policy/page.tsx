@@ -103,7 +103,7 @@ export default function PrivacyPolicyPage() {
                 <strong>Payment Aggregators (e.g. Cashfree Payments):</strong> To process online subscription payments securely in compliance with PCI-DSS standards.
               </li>
               <li>
-                <strong>Cloud &amp; Hosting Infrastructure:</strong> Secure servers located within compliant cloud environments (e.g., Oracle Cloud / AWS) with SSL/TLS encryption.
+                <strong>Cloud &amp; Hosting Infrastructure:</strong> Our website and hosted services run on Oracle Cloud infrastructure, served over SSL/TLS (HTTPS) encryption.
               </li>
               <li>
                 <strong>Legal &amp; Regulatory Authorities:</strong> When strictly required by applicable Indian law, court order, or governmental statutory mandate.
@@ -125,7 +125,7 @@ export default function PrivacyPolicyPage() {
               6. Data Security &amp; Retention
             </h2>
             <p className="mb-2">
-              We implement industry-standard administrative, technical, and physical safeguards to protect your data against unauthorized access, alteration, disclosure, or destruction. All data transmissions between your browser/terminals and our cloud services are secured using 256-bit SSL/TLS encryption.
+              We aim to implement reasonable administrative, technical, and physical safeguards to protect your data against unauthorized access, alteration, disclosure, or destruction. Our website and hosted services are served over SSL/TLS (HTTPS) encryption; as device-to-cloud terminal sync features are built out, they will use the same industry-standard encryption in transit.
             </p>
             <p>
               We retain your account and business records for the active duration of your subscription and for a reasonable statutory period thereafter to fulfill legal, tax, accounting, and regulatory compliance requirements.

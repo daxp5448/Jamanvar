@@ -111,7 +111,7 @@ export function RoiCalculator({ onOpenDemo }: RoiCalculatorProps) {
               <div className="absolute top-0 right-0 w-64 h-64 bg-jamanvar-saffron-500/15 rounded-full blur-3xl pointer-events-none" />
 
               <span className="text-[9px] sm:text-[10px] font-mono font-bold tracking-widest uppercase text-jamanvar-saffron-400 block mb-1.5 sm:mb-2">
-                ESTIMATED MONTHLY OPERATIONAL IMPACT
+                ILLUSTRATIVE ROI ESTIMATE
               </span>
 
               <div className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-2">
@@ -148,6 +148,10 @@ export function RoiCalculator({ onOpenDemo }: RoiCalculatorProps) {
                 <span>Unlock This Growth • Book Free Demo</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
+
+              <p className="mt-3 sm:mt-4 text-[10px] sm:text-[11px] text-white/40 leading-relaxed">
+                These calculations are illustrative estimates based on the inputs above and should not be considered a guarantee of revenue, savings or profitability. Actual results vary by restaurant, pricing, order volume, staffing and operating conditions.
+              </p>
             </div>
           </motion.div>
         </div>

@@ -21,9 +21,9 @@ import {
 export default function SecurityGstPage() {
   const securityFeatures = [
     {
-      title: "256-Bit SSL/TLS Encryption",
+      title: "Encrypted Website & Data-in-Transit",
       description:
-        "All data transmissions between your billing devices, waiter tablets, and the cloud are protected using modern TLS 1.3 encryption protocols.",
+        "Our website and hosted services are served over HTTPS with SSL/TLS encryption. As device-to-cloud sync features roll out, they will use the same industry-standard encryption in transit.",
       icon: Lock,
     },
     {
@@ -39,9 +39,9 @@ export default function SecurityGstPage() {
       icon: ShieldCheck,
     },
     {
-      title: "Local Offline Encryption & Auto-Backup",
+      title: "Offline-First Design",
       description:
-        "Your offline database is securely encrypted locally. Automated cloud snapshots occur in real time as soon as network connectivity is available.",
+        "Jamanvar is designed to keep billing and KOT printing working locally without active internet, syncing to the cloud once connectivity is available. Local data protection and backup safeguards are being built out as part of this architecture.",
       icon: Server,
     },
   ];
@@ -63,9 +63,9 @@ export default function SecurityGstPage() {
         "Capture corporate guest GSTINs, legal trade names, and addresses for instant corporate B2B tax invoices with compliant sequential numbering.",
     },
     {
-      title: "One-Click GSTR-1 & GSTR-3B Export",
+      title: "GST Reporting & Export Capabilities",
       description:
-        "Generate monthly GST sales summaries, taxable values, and tax breakdowns formatted for direct handover to your Chartered Accountant (CA).",
+        "Generate monthly GST sales summaries, taxable values, and tax breakdowns in exportable formats for handover to your Chartered Accountant (CA).",
     },
   ];
 
@@ -88,7 +88,7 @@ export default function SecurityGstPage() {
           </h1>
 
           <p className="text-sm sm:text-lg text-white/75 max-w-2xl mx-auto leading-relaxed font-normal mb-8">
-            How Jamanvar protects your restaurant's business data and ensures 100% statutory Goods and Services Tax (GST) accuracy.
+            How Jamanvar approaches your restaurant's business data security, and how it supports GST billing and tax calculation.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-3">
@@ -115,10 +115,10 @@ export default function SecurityGstPage() {
             INFRASTRUCTURE &amp; DATA PRIVACY
           </span>
           <h2 className="text-2xl sm:text-4xl font-extrabold text-jamanvar-navy-950 tracking-tight">
-            Bank-grade encryption &amp; anti-theft controls.
+            Secure data handling &amp; anti-theft controls.
           </h2>
           <p className="mt-2 text-xs sm:text-sm text-jamanvar-navy-900/70 leading-relaxed">
-            Your sales numbers, customer data, and recipes belong solely to you. We safeguard your restaurant data through layered defense and role-based permissions.
+            Your sales numbers, customer data, and recipes belong solely to you. Jamanvar is designed with security-conscious practices — encrypted data in transit and role-based permissions — to protect your restaurant's business information.
           </p>
         </div>
 
@@ -155,10 +155,10 @@ export default function SecurityGstPage() {
               INDIAN TAX COMPLIANCE
             </span>
             <h2 className="text-2xl sm:text-4xl font-extrabold text-jamanvar-navy-950 tracking-tight">
-              Seamless GST Calculation &amp; Invoicing.
+              GST Billing &amp; Tax Support.
             </h2>
             <p className="mt-2 text-xs sm:text-sm text-jamanvar-navy-900/70 leading-relaxed">
-              Jamanvar is fully aligned with Indian GST laws, making monthly filing effortless for your accounting team.
+              Jamanvar supports GST calculation on restaurant bills, including CGST, SGST and IGST handling based on your configured tax rules — built around Indian GST invoicing conventions.
             </p>
           </div>
 
@@ -188,7 +188,10 @@ export default function SecurityGstPage() {
               <span>Publisher &amp; Developer Details</span>
             </div>
             <p className="text-xs text-jamanvar-navy-900/80 leading-relaxed">
-              Jamanvar is developed and distributed by <strong>KELVION TECH (Kelviontech)</strong> (Proprietor: <strong>Mihir Manishbhai Darji</strong>), based in Ahmedabad, Gujarat, India. All invoices issued for software subscription services are statutory-compliant with appropriate SAC accounting codes.
+              Jamanvar is developed and distributed by <strong>KELVION TECH (Kelviontech)</strong> (Proprietor: <strong>Mihir Manishbhai Darji</strong>), based in Ahmedabad, Gujarat, India. Invoices issued for software subscription services use appropriate SAC accounting codes.
+            </p>
+            <p className="mt-3 text-[11px] text-jamanvar-navy-900/55 leading-relaxed">
+              GST rates, HSN/SAC codes, and invoicing rules can change. Businesses should verify their tax configuration and statutory filings with their own qualified tax advisor or Chartered Accountant.
             </p>
           </div>
         </div>

@@ -124,7 +124,7 @@ export default function AboutPage() {
               </h3>
 
               <p className="text-xs text-jamanvar-navy-900/70 leading-relaxed">
-                Jamanvar is an independent software product developed, owned, and distributed by <strong>KELVION TECH</strong>, a recognized technology enterprise registered in Ahmedabad, Gujarat, India.
+                Jamanvar is an independent software product developed, owned, and distributed by <strong>KELVION TECH (Kelviontech)</strong>, a proprietorship technology business based in Ahmedabad, Gujarat, India.
               </p>
 
               <div className="space-y-3 pt-3 border-t border-jamanvar-navy-900/10 text-xs">

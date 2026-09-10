@@ -41,7 +41,7 @@ export default function RefundCancellationPage() {
               <span>Policy Scope</span>
             </div>
             <p className="text-xs text-jamanvar-navy-900/80">
-              This Refund and Cancellation Policy applies to software licenses, subscription plans, onboarding packages, and certified hardware procured through <strong>Jamanvar</strong>, a product of <strong>KELVION TECH (Kelviontech)</strong> (Proprietor: <strong>Mihir Manishbhai Darji</strong>), Ahmedabad, Gujarat, India.
+              This Refund and Cancellation Policy applies to software licenses, subscription plans, onboarding packages, and tested hardware procured through <strong>Jamanvar</strong>, a product of <strong>KELVION TECH (Kelviontech)</strong> (Proprietor: <strong>Mihir Manishbhai Darji</strong>), Ahmedabad, Gujarat, India.
             </p>
           </div>
 
@@ -87,7 +87,7 @@ export default function RefundCancellationPage() {
               3. Hardware Return &amp; Replacement Policy
             </h2>
             <p className="mb-2">
-              For certified restaurant hardware procured through Jamanvar (such as ESC/POS thermal printers, touch terminals, and cash drawers):
+              For restaurant hardware procured through Jamanvar (such as ESC/POS thermal printers, touch terminals, and cash drawers):
             </p>
             <ul className="list-disc pl-5 space-y-1.5 text-jamanvar-navy-900/80">
               <li>
