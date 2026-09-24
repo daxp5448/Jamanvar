@@ -1,8 +1,17 @@
 # Deploying Jamanvar to `jamanvar.kelviontech.in`
 
-Runbook for putting this site live on the Oracle Cloud VM (`152.67.6.103`) that
-already serves `kelviontech.in` and `restaurant.kelviontech.in` /
-`restaurent.kelviontech.in`.
+Runbook for putting this site live behind the shared KelvionTech nginx
+container, the same pattern used for `kelviontech.in` and
+`restaurant.kelviontech.in` / `restaurent.kelviontech.in`.
+
+**VM note (2026-09-25):** originally written for the Oracle Cloud VM
+(`152.67.6.103`). That box is temporarily out of service, so this now runs on
+an AWS VM instead — see `AWS_DEPLOYMENT_MASTER_PLAN.md` for the account/box
+details. Nothing about the pattern below changed, only the host:
+
+```powershell
+ssh -i "$HOME\.ssh\mihir-personal.pem" ubuntu@13.202.225.48
+```
 
 This is a **stateless marketing site** — no database, no API, no secrets. One
 container, one nginx vhost, one certificate. Confirmed against the actual state
@@ -69,7 +78,7 @@ Code-side: `output: "standalone"` in `next.config.mjs`; `metadataBase` →
 ## Step 1 — DNS (done)
 
 ```
-A   jamanvar   152.67.6.103
+A   jamanvar   13.202.225.48
 ```
 
 Confirmed resolving.
@@ -79,7 +88,7 @@ Confirmed resolving.
 ## Step 2 — Get the code onto the VM
 
 ```bash
-ssh kelvion   # or: ssh -i /path/to/key ubuntu@152.67.6.103
+ssh -i "$HOME/.ssh/mihir-personal.pem" ubuntu@13.202.225.48
 
 cd /home/ubuntu
 git clone https://github.com/daxp5448/Jamanvar.git jamanvar

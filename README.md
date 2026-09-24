@@ -53,9 +53,10 @@ Makefile              # Deployment & operations tasks
 
 ## Deployment
 
-Production runs on the Oracle Cloud VM at
+Production runs at
 [jamanvar.kelviontech.in](https://jamanvar.kelviontech.in), as one Docker
-container behind nginx. Full runbook: [`DEPLOY_JAMANVAR.md`](DEPLOY_JAMANVAR.md).
+container behind the shared KelvionTech nginx. Full runbook:
+[`DEPLOY_JAMANVAR.md`](DEPLOY_JAMANVAR.md).
 
 ```bash
 make deploy   # pull, rebuild, restart, verify

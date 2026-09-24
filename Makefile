@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------------
 # Jamanvar — operations runner for jamanvar.kelviontech.in
-# Run these on the Oracle Cloud VM, from this repo's root.
+# Run these on the production VM, from this repo's root.
 #
 # Nginx here is NOT part of this repo — it's the shared kelviontech-nginx-1
 # container from the KelvionTech stack (KELVIONTECH_DIR), which already fronts
