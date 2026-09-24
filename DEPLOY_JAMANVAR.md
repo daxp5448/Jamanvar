@@ -91,11 +91,16 @@ Confirmed resolving.
 ssh -i "$HOME/.ssh/mihir-personal.pem" ubuntu@13.202.225.48
 
 cd /home/ubuntu
-git clone https://github.com/daxp5448/Jamanvar.git jamanvar
-cd jamanvar
+git clone git@github.com:daxp5448/Jamanvar.git jamanwar
+cd jamanwar
 ```
 
-If `/home/ubuntu/jamanvar` already exists from an earlier attempt, `cd` into it
+Uses the SSH remote, not HTTPS — the box's GitHub deploy key
+(`~/.ssh/github_deploy`, aliased for `github.com` in `~/.ssh/config`) only
+authenticates SSH clones. An `https://github.com/...` URL ignores that key
+entirely and prompts for a username/token instead.
+
+If `/home/ubuntu/jamanwar` already exists from an earlier attempt, `cd` into it
 and `git pull --ff-only` instead of cloning again.
 
 ---
@@ -252,7 +257,7 @@ Shipping a change:
 git add -A && git commit -m "..." && git push
 
 # on the VM
-cd /home/ubuntu/jamanvar && make deploy
+cd /home/ubuntu/jamanwar && make deploy
 ```
 
 No database, so nothing to back up beyond the repo itself.
