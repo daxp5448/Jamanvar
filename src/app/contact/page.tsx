@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Navbar } from "@/components/Navbar";
+import { InternalNavbar } from "@/components/internal/InternalNavbar";
 import { Footer } from "@/components/Footer";
 import { WatermarkOverlay } from "@/components/WatermarkOverlay";
 import {
@@ -58,7 +58,7 @@ export default function ContactPage() {
   return (
     <main className="min-h-screen bg-jamanvar-cream-100 text-jamanvar-navy-950 selection:bg-jamanvar-saffron-200 selection:text-jamanvar-navy-900 relative">
       <WatermarkOverlay />
-      <Navbar />
+      <InternalNavbar />
 
       {/* Hero / Header */}
       <section className="pt-32 pb-12 sm:pt-40 sm:pb-16 bg-jamanvar-navy-950 text-white relative overflow-hidden">

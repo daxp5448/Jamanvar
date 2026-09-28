@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { Navbar } from "@/components/Navbar";
+import { InternalNavbar } from "@/components/internal/InternalNavbar";
 import { Footer } from "@/components/Footer";
 import { WatermarkOverlay } from "@/components/WatermarkOverlay";
 import {
@@ -22,6 +22,15 @@ import {
   QrCode,
   FileSpreadsheet,
 } from "lucide-react";
+
+const FEATURE_PRODUCT_SLUGS: Record<string, { slug: string; name: string }> = {
+  pos: { slug: "pos", name: "Jamanvar POS" },
+  kitchen: { slug: "kds", name: "Jamanvar KDS" },
+  tables: { slug: "tables", name: "Table & Floor Management" },
+  inventory: { slug: "inventory", name: "Recipe-Level Inventory" },
+  analytics: { slug: "analytics", name: "Analytics & Insights" },
+  hardware: { slug: "hardware", name: "Offline & Hardware" },
+};
 
 export default function FeaturesPage() {
   const modules = [
@@ -132,7 +141,7 @@ export default function FeaturesPage() {
   return (
     <main className="min-h-screen bg-jamanvar-cream-100 text-jamanvar-navy-950 selection:bg-jamanvar-saffron-200 selection:text-jamanvar-navy-900 relative">
       <WatermarkOverlay />
-      <Navbar />
+      <InternalNavbar />
 
       {/* Hero Header */}
       <section className="pt-32 pb-14 sm:pt-40 sm:pb-20 bg-jamanvar-navy-950 text-white relative overflow-hidden">
@@ -209,19 +218,25 @@ export default function FeaturesPage() {
                     ))}
                   </div>
 
+                  {FEATURE_PRODUCT_SLUGS[module.id] && (
+                    <div className="mt-6">
+                      <Link
+                        href={`/products/${FEATURE_PRODUCT_SLUGS[module.id].slug}`}
+                        className="inline-flex items-center gap-1.5 text-xs font-bold text-jamanvar-navy-900 hover:text-jamanvar-saffron-700"
+                      >
+                        <span>Explore {FEATURE_PRODUCT_SLUGS[module.id].name} in detail</span>
+                        <ArrowRight className="w-3.5 h-3.5 text-jamanvar-saffron-500" />
+                      </Link>
+                    </div>
+                  )}
+
                   <div className="mt-8 pt-6 border-t border-jamanvar-navy-900/10 flex flex-wrap items-center gap-4">
                     <Link
-                      href="/pricing"
+                      href="/book-a-demo"
                       className="px-5 py-2.5 rounded-xl bg-jamanvar-navy-900 hover:bg-jamanvar-navy-800 text-white font-bold text-xs flex items-center gap-1.5 transition-colors"
                     >
-                      <span>View Pricing</span>
+                      <span>Request Live Demo</span>
                       <ArrowRight className="w-3.5 h-3.5 text-jamanvar-saffron-400" />
-                    </Link>
-                    <Link
-                      href="/contact"
-                      className="px-5 py-2.5 rounded-xl bg-jamanvar-cream-200 hover:bg-jamanvar-cream-300 text-jamanvar-navy-950 font-bold text-xs transition-colors"
-                    >
-                      Request Live Demo
                     </Link>
                   </div>
                 </div>
@@ -285,10 +300,10 @@ export default function FeaturesPage() {
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
-              href="/pricing"
+              href="/how-it-works"
               className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-white/10 hover:bg-white/15 text-white border border-white/15 font-bold text-xs sm:text-sm text-center"
             >
-              Check Subscription Plans
+              See How It Works
             </Link>
           </div>
         </div>

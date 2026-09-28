@@ -1,21 +1,68 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, ArrowRight } from "lucide-react";
+import { Menu, X, ArrowRight, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { groupProductsByCategory } from "@/content/products";
+import { SOLUTIONS } from "@/content/solutions";
+import { ProductsMenuPanel, SolutionsMenuPanel } from "@/components/internal/NavMenus";
 
 interface NavbarProps {
   onOpenDemo?: () => void;
 }
 
+const PRODUCT_GROUPS = groupProductsByCategory().filter((g) => g.products.length > 0);
+
 export function Navbar({ onOpenDemo }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [open, setOpen] = useState<"products" | "solutions" | null>(null);
+  const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
+  const [mobileSolutionsOpen, setMobileSolutionsOpen] = useState(false);
   const pathname = usePathname();
   const isHomePage = pathname === "/";
+  const menuRef = useRef<HTMLDivElement>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const clearCloseTimer = () => {
+    if (closeTimer.current) {
+      clearTimeout(closeTimer.current);
+      closeTimer.current = null;
+    }
+  };
+
+  const scheduleClose = () => {
+    clearCloseTimer();
+    closeTimer.current = setTimeout(() => setOpen(null), 200);
+  };
+
+  const groupProps = (key: "products" | "solutions") => ({
+    onMouseEnter: () => {
+      clearCloseTimer();
+      setOpen(key);
+    },
+    onMouseLeave: scheduleClose,
+  });
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setOpen(null);
+      }
+    };
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(null);
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleEscape);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,8 +79,6 @@ export function Navbar({ onOpenDemo }: NavbarProps) {
 
   const navLinks = [
     { name: "Features", href: "/features" },
-    { name: "Pricing", href: "/pricing" },
-    { name: "How It Works", href: isHomePage ? "#how-it-works" : "/#how-it-works" },
     { name: "About", href: "/about" },
     { name: "Support", href: "/support" },
     { name: "Contact", href: "/contact" },
@@ -43,7 +88,7 @@ export function Navbar({ onOpenDemo }: NavbarProps) {
     if (onOpenDemo) {
       onOpenDemo();
     } else {
-      window.location.href = "/contact";
+      window.location.href = "/book-a-demo";
     }
   };
 
@@ -57,7 +102,7 @@ export function Navbar({ onOpenDemo }: NavbarProps) {
             : "py-3.5 bg-transparent"
         )}
       >
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
+        <div ref={menuRef} className="relative max-w-7xl mx-auto flex items-center justify-between">
           {/* LEFT: Permanent Official Jamanvar Brandmark in Navbar */}
           <Link
             href="/"
@@ -76,7 +121,55 @@ export function Navbar({ onOpenDemo }: NavbarProps) {
           </Link>
 
           {/* CENTER: Navigation Links */}
-          <nav className="hidden md:flex items-center gap-1 lg:gap-2 px-4 py-1.5 rounded-full bg-white/85 backdrop-blur-md border border-jamanvar-navy-900/8 shadow-subtle">
+          <nav className="hidden md:flex items-center gap-0.5 lg:gap-2 px-2 lg:px-4 py-1.5 rounded-full bg-white/85 backdrop-blur-md border border-jamanvar-navy-900/8 shadow-subtle">
+            <Link
+              href="/"
+              className={cn(
+                "px-2.5 lg:px-3.5 py-1.5 whitespace-nowrap text-xs lg:text-sm font-semibold rounded-full transition-all duration-150",
+                pathname === "/"
+                  ? "text-jamanvar-saffron-700 bg-jamanvar-saffron-50 font-bold"
+                  : "text-jamanvar-navy-900/80 hover:text-jamanvar-navy-950 hover:bg-jamanvar-cream-200/80"
+              )}
+            >
+              Home
+            </Link>
+
+            <div {...groupProps("products")}>
+              <button
+                onClick={() => setOpen("products")}
+                aria-haspopup="menu"
+                aria-expanded={open === "products"}
+                aria-controls="products-menu"
+                className={cn(
+                  "flex items-center gap-1 px-2.5 lg:px-3.5 py-1.5 whitespace-nowrap text-xs lg:text-sm font-semibold rounded-full transition-all duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-jamanvar-saffron-500",
+                  open === "products"
+                    ? "text-jamanvar-saffron-700 bg-jamanvar-saffron-50 font-bold"
+                    : "text-jamanvar-navy-900/80 hover:text-jamanvar-navy-950 hover:bg-jamanvar-cream-200/80"
+                )}
+              >
+                <span>Products</span>
+                <ChevronDown className={cn("w-3.5 h-3.5 transition-transform duration-200", open === "products" && "rotate-180")} />
+              </button>
+            </div>
+
+            <div {...groupProps("solutions")}>
+              <button
+                onClick={() => setOpen("solutions")}
+                aria-haspopup="menu"
+                aria-expanded={open === "solutions"}
+                aria-controls="solutions-menu"
+                className={cn(
+                  "flex items-center gap-1 px-2.5 lg:px-3.5 py-1.5 whitespace-nowrap text-xs lg:text-sm font-semibold rounded-full transition-all duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-jamanvar-saffron-500",
+                  open === "solutions"
+                    ? "text-jamanvar-saffron-700 bg-jamanvar-saffron-50 font-bold"
+                    : "text-jamanvar-navy-900/80 hover:text-jamanvar-navy-950 hover:bg-jamanvar-cream-200/80"
+                )}
+              >
+                <span>Solutions</span>
+                <ChevronDown className={cn("w-3.5 h-3.5 transition-transform duration-200", open === "solutions" && "rotate-180")} />
+              </button>
+            </div>
+
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -84,7 +177,7 @@ export function Navbar({ onOpenDemo }: NavbarProps) {
                   key={link.name}
                   href={link.href}
                   className={cn(
-                    "px-3.5 py-1.5 text-xs lg:text-sm font-semibold rounded-full transition-all duration-150",
+                    "px-2.5 lg:px-3.5 py-1.5 whitespace-nowrap text-xs lg:text-sm font-semibold rounded-full transition-all duration-150",
                     isActive
                       ? "text-jamanvar-saffron-700 bg-jamanvar-saffron-50 font-bold"
                       : "text-jamanvar-navy-900/80 hover:text-jamanvar-navy-950 hover:bg-jamanvar-cream-200/80"
@@ -96,18 +189,34 @@ export function Navbar({ onOpenDemo }: NavbarProps) {
             })}
           </nav>
 
+          {open && (
+            <div
+              className="hidden md:block absolute left-1/2 -translate-x-1/2 top-full -mt-2 pt-4 z-50"
+              onMouseEnter={clearCloseTimer}
+              onMouseLeave={scheduleClose}
+            >
+              <div id={`${open}-menu`} role="menu" aria-label={open === "products" ? "Products" : "Solutions"}>
+                {open === "products" ? (
+                  <ProductsMenuPanel onNavigate={() => setOpen(null)} />
+                ) : (
+                  <SolutionsMenuPanel onNavigate={() => setOpen(null)} />
+                )}
+              </div>
+            </div>
+          )}
+
           {/* RIGHT: Login & Book a Demo */}
           <div className="hidden md:flex items-center gap-3">
             <Link
               href="/contact"
-              className="text-xs lg:text-sm font-semibold text-jamanvar-navy-900/80 hover:text-jamanvar-navy-950 px-3 py-2 transition-colors cursor-pointer"
+              className="hidden lg:block whitespace-nowrap text-xs lg:text-sm font-semibold text-jamanvar-navy-900/80 hover:text-jamanvar-navy-950 px-3 py-2 transition-colors cursor-pointer"
             >
               Partner Login
             </Link>
 
             <button
               onClick={handleDemoClick}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-jamanvar-navy-900 hover:bg-jamanvar-navy-800 text-white text-xs lg:text-sm font-bold shadow-sm transition-all duration-200 hover:shadow hover:scale-[1.02] active:scale-[0.98] cursor-pointer border border-jamanvar-saffron-500/30"
+              className="inline-flex items-center gap-2 px-4 lg:px-5 py-2.5 whitespace-nowrap rounded-xl bg-jamanvar-navy-900 hover:bg-jamanvar-navy-800 text-white text-xs lg:text-sm font-bold shadow-sm transition-all duration-200 hover:shadow hover:scale-[1.02] active:scale-[0.98] cursor-pointer border border-jamanvar-saffron-500/30"
             >
               <span>Book a Demo</span>
               <ArrowRight className="w-3.5 h-3.5 text-jamanvar-saffron-400" />
@@ -152,7 +261,77 @@ export function Navbar({ onOpenDemo }: NavbarProps) {
                 </button>
               </div>
 
-              <div className="flex flex-col gap-2 py-6">
+              <div className="flex flex-col gap-2 py-6 overflow-y-auto">
+                <Link
+                  href="/"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={cn(
+                    "px-3 py-2.5 text-sm font-semibold rounded-lg transition-colors",
+                    pathname === "/"
+                      ? "text-jamanvar-saffron-700 bg-jamanvar-saffron-50 font-bold"
+                      : "text-jamanvar-navy-900 hover:bg-jamanvar-cream-200"
+                  )}
+                >
+                  Home
+                </Link>
+
+                <div className="border-b border-jamanvar-navy-900/10 pb-2">
+                  <button
+                    onClick={() => setMobileProductsOpen((v) => !v)}
+                    aria-expanded={mobileProductsOpen}
+                    className="w-full flex items-center justify-between px-3 py-2.5 text-sm font-semibold text-jamanvar-navy-900"
+                  >
+                    <span>Products</span>
+                    <ChevronDown className={cn("w-4 h-4 transition-transform duration-200", mobileProductsOpen && "rotate-180")} />
+                  </button>
+                  {mobileProductsOpen && (
+                    <div className="pt-1">
+                      {PRODUCT_GROUPS.map((group) => (
+                        <div key={group.category} className="mb-3">
+                          <span className="text-[10px] font-bold uppercase tracking-widest text-jamanvar-navy-900/40 block mb-1.5 px-3">
+                            {group.category}
+                          </span>
+                          {group.products.map((p) => (
+                            <Link
+                              key={p.slug}
+                              href={`/products/${p.slug}`}
+                              onClick={() => setMobileMenuOpen(false)}
+                              className="block px-3 py-2 text-sm font-semibold text-jamanvar-navy-900 rounded-lg hover:bg-jamanvar-cream-200"
+                            >
+                              {p.name}
+                            </Link>
+                          ))}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <div className="border-b border-jamanvar-navy-900/10 pb-2">
+                  <button
+                    onClick={() => setMobileSolutionsOpen((v) => !v)}
+                    aria-expanded={mobileSolutionsOpen}
+                    className="w-full flex items-center justify-between px-3 py-2.5 text-sm font-semibold text-jamanvar-navy-900"
+                  >
+                    <span>Solutions</span>
+                    <ChevronDown className={cn("w-4 h-4 transition-transform duration-200", mobileSolutionsOpen && "rotate-180")} />
+                  </button>
+                  {mobileSolutionsOpen && (
+                    <div className="pt-1">
+                      {SOLUTIONS.map((s) => (
+                        <Link
+                          key={s.id}
+                          href={`/solutions/${s.id}`}
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="block px-3 py-2 text-sm font-semibold text-jamanvar-navy-900 rounded-lg hover:bg-jamanvar-cream-200"
+                        >
+                          {s.navTitle}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
                 {navLinks.map((link) => (
                   <Link
                     key={link.name}

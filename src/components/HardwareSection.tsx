@@ -156,13 +156,13 @@ export function HardwareSection() {
               </div>
             </motion.div>
 
-            {/* Link to Hardware Pricing */}
+            {/* Link to the hardware product page */}
             <div className="pt-3">
               <a
-                href="/pricing#hardware"
+                href="/products/hardware"
                 className="w-full py-3 px-4 rounded-xl bg-jamanvar-cream-200 hover:bg-jamanvar-cream-300 text-jamanvar-navy-950 font-bold text-xs flex items-center justify-center gap-2 transition-colors border border-jamanvar-navy-900/10"
               >
-                <span>View Complete Hardware Kits &amp; Pricing</span>
+                <span>Explore Offline &amp; Hardware in detail</span>
                 <span className="text-jamanvar-saffron-600">→</span>
               </a>
             </div>

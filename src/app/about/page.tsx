@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Navbar } from "@/components/Navbar";
+import { InternalNavbar } from "@/components/internal/InternalNavbar";
 import { Footer } from "@/components/Footer";
 import { WatermarkOverlay } from "@/components/WatermarkOverlay";
 import {
@@ -34,9 +34,9 @@ export default function AboutPage() {
       icon: ShieldCheck,
     },
     {
-      title: "Honest, Predictable Pricing",
+      title: "No Cut of Your Revenue",
       description:
-        "No hidden percentage cuts on your hard-earned restaurant revenue. We charge a flat, transparent software subscription with complete clarity.",
+        "Jamanvar doesn't take a percentage of your cash, UPI or card sales. What you earn at the counter is yours, and we're upfront about everything else.",
       icon: Award,
     },
     {
@@ -50,7 +50,7 @@ export default function AboutPage() {
   return (
     <main className="min-h-screen bg-jamanvar-cream-100 text-jamanvar-navy-950 selection:bg-jamanvar-saffron-200 selection:text-jamanvar-navy-900 relative">
       <WatermarkOverlay />
-      <Navbar />
+      <InternalNavbar />
 
       {/* Hero Header */}
       <section className="pt-32 pb-14 sm:pt-40 sm:pb-20 bg-jamanvar-navy-950 text-white relative overflow-hidden">

@@ -71,13 +71,14 @@ export function Footer() {
               Product Modules
             </h4>
             <ul className="space-y-2 text-white/60">
-              <li><Link href="/features#pos" className="hover:text-white transition-colors">Touch POS Billing</Link></li>
-              <li><Link href="/features#kitchen" className="hover:text-white transition-colors">Kitchen Display (KDS)</Link></li>
-              <li><Link href="/features#tables" className="hover:text-white transition-colors">Table Floor Plan</Link></li>
-              <li><Link href="/features#inventory" className="hover:text-white transition-colors">Recipe Inventory</Link></li>
-              <li><Link href="/features#analytics" className="hover:text-white transition-colors">Live Analytics</Link></li>
-              <li><Link href="/pricing#hardware" className="hover:text-white transition-colors">Hardware Kits</Link></li>
-              <li><Link href="/pricing" className="hover:text-jamanvar-saffron-400 transition-colors font-medium">Pricing &amp; Plans</Link></li>
+              <li><Link href="/products/pos" className="hover:text-white transition-colors">Touch POS Billing</Link></li>
+              <li><Link href="/products/kds" className="hover:text-white transition-colors">Kitchen Display (KDS)</Link></li>
+              <li><Link href="/products/tables" className="hover:text-white transition-colors">Table Floor Plan</Link></li>
+              <li><Link href="/products/captain" className="hover:text-white transition-colors">Captain Ordering</Link></li>
+              <li><Link href="/products/qr-ordering" className="hover:text-white transition-colors">QR Ordering</Link></li>
+              <li><Link href="/products/inventory" className="hover:text-white transition-colors">Recipe Inventory</Link></li>
+              <li><Link href="/products/analytics" className="hover:text-white transition-colors">Live Analytics</Link></li>
+              <li><Link href="/products/hardware" className="hover:text-white transition-colors">Offline &amp; Hardware</Link></li>
             </ul>
           </div>
 
@@ -89,7 +90,7 @@ export function Footer() {
             <ul className="space-y-2 text-white/60">
               <li><Link href="/about" className="hover:text-white transition-colors">About Jamanvar</Link></li>
               <li><Link href="/features" className="hover:text-white transition-colors">System Features</Link></li>
-              <li><Link href="/pricing" className="hover:text-white transition-colors">Pricing &amp; Subscriptions</Link></li>
+              <li><Link href="/how-it-works" className="hover:text-white transition-colors">How It Works</Link></li>
               <li><Link href="/support" className="hover:text-white transition-colors">Support &amp; Training</Link></li>
               <li><Link href="/contact" className="hover:text-white transition-colors">Contact Team</Link></li>
               <li><a href="https://kelviontech.in" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Kelviontech Suite ↗</a></li>

@@ -1,15 +1,20 @@
 import type { MetadataRoute } from "next";
+import { PRODUCTS } from "@/content/products";
+import { SOLUTIONS } from "@/content/solutions";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://jamanvar.kelviontech.in";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     "",
+    ...PRODUCTS.map((p) => `/products/${p.slug}`),
+    ...SOLUTIONS.map((s) => `/solutions/${s.id}`),
     "/about",
     "/features",
-    "/pricing",
+    "/how-it-works",
     "/support",
     "/contact",
+    "/book-a-demo",
     "/privacy-policy",
     "/terms-and-conditions",
     "/refund-cancellation",

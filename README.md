@@ -87,3 +87,4 @@ Plus a `ThermalBillModal` and `DemoModal` available globally for interactive dem
 ## License
 
 Private & proprietary — © Kelviontech.
+# Jamanvar

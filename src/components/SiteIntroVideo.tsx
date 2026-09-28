@@ -1,21 +1,53 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useSyncExternalStore } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+// The intro plays once per visit: the first time someone lands on the site.
+// Clicking "Home" later in the same visit goes straight to the page.
+const SEEN_KEY = "jamanvar-intro-seen";
+
+const subscribe = () => () => {};
+
+function readSeen(): boolean {
+  try {
+    return window.sessionStorage.getItem(SEEN_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+function markSeen() {
+  try {
+    window.sessionStorage.setItem(SEEN_KEY, "1");
+  } catch {
+    // Storage can be blocked (private mode); the intro then just plays again.
+  }
+}
+
 export function SiteIntroVideo() {
-  const [isVisible, setIsVisible] = useState(true);
+  // Server snapshot is `false` so the intro is in the first HTML, and the
+  // client snapshot is read directly on in-app navigation, so returning to
+  // Home never flashes the overlay.
+  const seen = useSyncExternalStore(subscribe, readSeen, () => false);
+  const [dismissed, setDismissed] = useState(false);
+  const isVisible = !seen && !dismissed;
+
   const videoRef = useRef<HTMLVideoElement>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
+    if (seen) return;
+
+    markSeen();
+
     // Only lock body scroll while intro is visible
-    if (typeof document !== "undefined") {
-      document.body.style.overflow = "hidden";
-    }
+    document.body.style.overflow = "hidden";
 
     // Play video muted
     if (videoRef.current) {
+      videoRef.current.defaultMuted = true;
+      videoRef.current.muted = true;
       videoRef.current.play().catch(() => {});
     }
 
@@ -26,22 +58,19 @@ export function SiteIntroVideo() {
 
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
-      if (typeof document !== "undefined") {
-        document.body.style.overflow = "";
-      }
+      document.body.style.overflow = "";
     };
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [seen]);
 
   const handleComplete = () => {
     if (timerRef.current) {
       clearTimeout(timerRef.current);
       timerRef.current = null;
     }
-    if (typeof document !== "undefined") {
-      document.body.style.overflow = "";
-    }
+    document.body.style.overflow = "";
     // Note: NEVER call window.scrollTo here so user's manual scroll is never disrupted!
-    setIsVisible(false);
+    setDismissed(true);
   };
 
   return (
@@ -66,8 +95,6 @@ export function SiteIntroVideo() {
               muted
               playsInline
               preload="auto"
-              // @ts-ignore
-              defaultMuted
               // @ts-ignore
               webkit-playsinline="true"
               onEnded={handleComplete}

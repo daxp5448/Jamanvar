@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { Navbar } from "@/components/Navbar";
+import { InternalNavbar } from "@/components/internal/InternalNavbar";
 import { Footer } from "@/components/Footer";
 import { WatermarkOverlay } from "@/components/WatermarkOverlay";
 import {
@@ -72,7 +72,7 @@ export default function SecurityGstPage() {
   return (
     <main className="min-h-screen bg-jamanvar-cream-100 text-jamanvar-navy-950 selection:bg-jamanvar-saffron-200 selection:text-jamanvar-navy-900 relative">
       <WatermarkOverlay />
-      <Navbar />
+      <InternalNavbar />
 
       {/* Hero Header */}
       <section className="pt-32 pb-14 sm:pt-40 sm:pb-20 bg-jamanvar-navy-950 text-white relative overflow-hidden">
@@ -215,10 +215,10 @@ export default function SecurityGstPage() {
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
-              href="/pricing"
+              href="/book-a-demo"
               className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-white/10 hover:bg-white/15 text-white border border-white/15 font-bold text-xs sm:text-sm text-center"
             >
-              Explore Pricing Plans
+              Book a Demo
             </Link>
           </div>
         </div>
