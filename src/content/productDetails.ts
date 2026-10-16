@@ -6,16 +6,18 @@
 // Names, tables and amounts that appear here (T-07, ₹1,302, Paneer Tikka
 // Angara and so on) come from the sample restaurant used across the site.
 //
-// Every product has its own images. The device scenes in
-// /images/jamanvar/products show Jamanvar running on real hardware; the
-// photos in /images/jamanvar/trail are used once each.
+// Every detail row has a visual: either a real photograph from
+// /images/jamanvar/trail, or a coded product visual (a screen in its device,
+// a printed ticket or receipt, the table QR stand or the hardware kit).
 
 import type { FaqItem } from "./products";
+import type { ScreenId } from "./screens";
 
-export interface DetailPhoto {
-  src: string;
-  alt: string;
-}
+/** Coded visuals: product screens in devices, or printed items and the hardware kit. */
+export type VisualId = ScreenId | "kot-ticket" | "receipt" | "qr-tent" | "hardware-kit";
+
+/** A real photograph, or a coded visual of the product. */
+export type DetailPhoto = { src: string; alt: string } | { visual: VisualId };
 
 export interface ProductDetail {
   title: string;
@@ -49,7 +51,6 @@ export interface ProductExtras {
 }
 
 const IMG = "/images/jamanvar";
-const SCENE = `${IMG}/products`;
 
 export const PRODUCT_DETAILS: Record<string, ProductDetail[]> = {
   pos: [
@@ -60,7 +61,7 @@ export const PRODUCT_DETAILS: Record<string, ProductDetail[]> = {
         "Prices, GST and totals come up as the order builds, which means the guest and the cashier are looking at the same number the whole way through. There's no surprise at the end of the meal.",
         "Behind the grid is your real menu: every dish with its code, price, veg or non-veg mark and category, set up from the menu you already have.",
       ],
-      photo: { src: `${IMG}/trail/pos.jpg`, alt: "Jamanvar POS showing Table 07's running bill beside a grid of quick-touch menu items, next to a receipt printer" },
+      photo: { visual: "pos-menu" },
     },
     {
       title: "A GST invoice with your name on it",
@@ -69,7 +70,7 @@ export const PRODUCT_DETAILS: Record<string, ProductDetail[]> = {
         "The header carries your own branding, so the slip that leaves the counter looks like it came from your restaurant and not from a software vendor.",
         "Reports are built from these same invoices and export for your accountant and for GST filing, so the numbers on paper and the numbers in the books don't drift apart.",
       ],
-      photo: { src: `${IMG}/trail/receipt.jpg`, alt: "A printed Jamanvar receipt with itemised dishes, CGST and SGST lines and a UPI QR" },
+      photo: { visual: "receipt" },
     },
     {
       title: "Settle it however the guest wants to pay",
@@ -77,7 +78,7 @@ export const PRODUCT_DETAILS: Record<string, ProductDetail[]> = {
         "At settlement the cashier picks the mode: UPI QR, card, cash or customer credit (Khaata). A table-specific UPI QR can be shown on screen or on the receipt, and the payment is verified instantly, with confirmation on the cashier's screen and on a UPI soundbox if you use one.",
         "Each payment is reconciled as it happens, so at closing there's nothing left to match by hand. Discounts are applied at the point of settlement and can be protected with OTP authorisation, so staff can't quietly adjust a bill.",
       ],
-      photo: { src: `${SCENE}/pos-payment.png`, alt: "Jamanvar POS payment screen with UPI QR, card, cash and Khaata options beside a UPI soundbox confirming ₹1,302 received" },
+      photo: { visual: "pos" },
     },
   ],
 
@@ -97,7 +98,7 @@ export const PRODUCT_DETAILS: Record<string, ProductDetail[]> = {
         "Every ticket header carries the KOT number, the table and a live timer, and the colour tells you the story before you read a word. Green means the order is fresh, amber means it's approaching the limit, and red means it's overdue.",
         "Inside each ticket, every item has its own status: cooking, done or dispatched. Chefs tap as they finish, and the pass can see which parts of a table's order are ready and which are still on the fire. That's how a big order goes out together instead of in dribs and drabs.",
       ],
-      photo: { src: `${SCENE}/kds-wall.png`, alt: "A wall-mounted Jamanvar kitchen display showing three colour-coded order tickets with cooking and done statuses" },
+      photo: { visual: "kds" },
     },
     {
       title: "Prefer paper? Print it at the station",
@@ -105,7 +106,7 @@ export const PRODUCT_DETAILS: Record<string, ProductDetail[]> = {
         "Not every kitchen is ready for screens on day one, and that's fine. Jamanvar can print each KOT on a thermal printer at the station that needs it: the ticket shows the KOT number, table, captain, station, every item and any note.",
         "You get the same routing, the same notes and the same speed. When you're ready to move a station to a screen, nothing about how orders are entered has to change.",
       ],
-      photo: { src: `${SCENE}/kds-printer.png`, alt: "A thermal kitchen printer printing a Jamanvar kitchen order ticket for table T-07 beside a phone showing KOT routing to Tandoor and Bar" },
+      photo: { visual: "kot-ticket" },
     },
   ],
 
@@ -125,7 +126,7 @@ export const PRODUCT_DETAILS: Record<string, ProductDetail[]> = {
         "Four states cover everything the floor needs to know: available, occupied, billing and reserved, each with its own colour. A table whose guests have asked for the bill changes state, so the captain knows it's time to close, and a reserved table is held for its booking.",
         "Every tile also shows its capacity, so you can tell at once whether a party of six fits at T-03, or whether you need to join two tables.",
       ],
-      photo: { src: `${SCENE}/tables-tablet.png`, alt: "Jamanvar floor plan on a tablet showing Main Dining, Terrace, Family Hall and Bar Area with colour-coded table tiles" },
+      photo: { visual: "tables" },
     },
     {
       title: "Tap a table, see the whole story",
@@ -133,7 +134,7 @@ export const PRODUCT_DETAILS: Record<string, ProductDetail[]> = {
         "Open any occupied table and you see what matters: how long the guests have been seated, how many orders are active, the running bill so far and which captain owns the table.",
         "From the same screen you can merge tables for a big group or transfer a running order to another table. The items and total move together, so a family that decides to sit outside doesn't mean starting the bill again.",
       ],
-      photo: { src: `${SCENE}/tables-host.png`, alt: "Jamanvar table detail on a phone showing T-08 in Family Hall with seated time, bill amount and merge and transfer options" },
+      photo: { visual: "table-detail" },
     },
   ],
 
@@ -153,7 +154,7 @@ export const PRODUCT_DETAILS: Record<string, ProductDetail[]> = {
         "Each ingredient shows how much you have against how much you should keep, and it's marked optimal, low or critical. The fresh mint and coriander at 0.8 kg show up in red long before a chef discovers the tub is empty.",
         "The stock screen sits next to the recipe it feeds, so you can see at a glance which dishes an ingredient affects, and the deduction from every KOT is visible as it happens.",
       ],
-      photo: { src: `${SCENE}/inventory-tablet.png`, alt: "Jamanvar recipe inventory on a tablet with stock bars marked optimal, low and critical for paneer, butter, chilli, mint and saffron" },
+      photo: { visual: "inventory" },
     },
     {
       title: "From low stock to goods received",
@@ -161,7 +162,7 @@ export const PRODUCT_DETAILS: Record<string, ProductDetail[]> = {
         "When something runs low, you raise a purchase order to your vendor from the same screen, and when the delivery arrives you log goods received against it, item by item. Anything that hasn't arrived yet stays visible as an open item.",
         "It closes the loop: the system that tells you paneer is low is the same one that records that ten kilos have arrived, so the stock figure updates without a separate spreadsheet.",
       ],
-      photo: { src: `${SCENE}/inventory-po.png`, alt: "Jamanvar purchase order on a laptop listing butter, paneer, mint and cream with a received tick beside each delivered item" },
+      photo: { visual: "purchase-order" },
     },
   ],
 
@@ -173,7 +174,7 @@ export const PRODUCT_DETAILS: Record<string, ProductDetail[]> = {
         "That's how you notice that Thursday's rush starts an hour earlier than you'd assumed, while there's still time to change the roster.",
         "It's the same picture your best manager builds in their head after years on the floor, drawn for you automatically from every bill.",
       ],
-      photo: { src: `${IMG}/trail/analytics.jpg`, alt: "Jamanvar live analytics with revenue, orders settled, peak dining hour and an hourly sales chart" },
+      photo: { visual: "dashboard" },
     },
     {
       title: "The owner's view, in your pocket",
@@ -181,7 +182,7 @@ export const PRODUCT_DETAILS: Record<string, ProductDetail[]> = {
         "On your phone you see today's revenue, the number of orders, table occupancy and the hourly chart, updating as bills are settled. You don't need to be in the building, or even in the city.",
         "When service ends, an automated end-of-day summary is ready, with net sales, peak hour, reconciliation status and best sellers. Owners can have it sent as a WhatsApp summary, so the day's result is waiting where you already read your messages.",
       ],
-      photo: { src: `${SCENE}/analytics-phone.png`, alt: "Two phones showing Jamanvar live revenue with an hourly chart and an end-of-day summary with net sales and reconciliation" },
+      photo: { visual: "owner" },
     },
     {
       title: "Reports that match the bills",
@@ -189,7 +190,7 @@ export const PRODUCT_DETAILS: Record<string, ProductDetail[]> = {
         "Cash, UPI and card settlements are matched to the bills as they're settled, and each line shows a tick when it reconciles. If a figure doesn't match, you see it that evening, not three weeks later.",
         "Beside it, a best-sellers view shows what's actually moving, and reports export for your accountant and for GST filing. They're built from the same invoices your guests were handed at the table.",
       ],
-      photo: { src: `${SCENE}/analytics-laptop.png`, alt: "Jamanvar reports on a laptop showing cash, UPI and card reconciliation, best sellers and a GST report export" },
+      photo: { visual: "reports" },
     },
   ],
 
@@ -201,7 +202,7 @@ export const PRODUCT_DETAILS: Record<string, ProductDetail[]> = {
         "If you already own the equipment, there's no need to buy it again. Standard ESC/POS printers and Windows, Android and iPad devices are supported.",
         "We also help with the fiddly parts: pairing thermal printers over USB or LAN, connecting cash drawers and getting kitchen tablets talking to the counter.",
       ],
-      photo: { src: `${IMG}/hardware-counter.jpg`, alt: "A Jamanvar POS terminal on a restaurant counter beside a receipt printer and a card reader" },
+      photo: { visual: "pos" },
     },
     {
       title: "The whole kit, tested as a set",
@@ -209,7 +210,7 @@ export const PRODUCT_DETAILS: Record<string, ProductDetail[]> = {
         "A full kit covers every role in the restaurant: a POS terminal for the counter, a thermal printer for receipts and KOTs, a KDS tablet for the pass, and a captain handheld for the floor. Each one shows the Jamanvar interface it's meant for.",
         "Because they've been tested together, a KOT fired from the handheld arrives on the kitchen tablet, and the bill on the terminal prints on the counter printer, on the first day.",
       ],
-      photo: { src: `${SCENE}/hardware-kit.png`, alt: "A Jamanvar hardware kit on a counter: POS terminal, kitchen display tablet, receipt printer and captain handheld, each showing the Jamanvar interface" },
+      photo: { visual: "hardware-kit" },
     },
     {
       title: "When the router goes quiet, the counter doesn't",
@@ -217,7 +218,7 @@ export const PRODUCT_DETAILS: Record<string, ProductDetail[]> = {
         "If the internet drops, the POS shows that it's offline and carries on. Orders, KOTs and bills are handled locally, and a small counter shows how many orders and bills are waiting to sync.",
         "When the connection returns, everything goes up to the cloud automatically, in both directions. The owner's dashboard fills in, nothing is re-entered, and the cashier never has to do anything.",
       ],
-      photo: { src: `${SCENE}/hardware-offline.png`, alt: "A Jamanvar POS showing an offline banner with 14 orders waiting to sync, next to a phone confirming everything has synced" },
+      photo: { visual: "offline" },
     },
   ],
 
@@ -237,7 +238,7 @@ export const PRODUCT_DETAILS: Record<string, ProductDetail[]> = {
         "The handheld shows the tables you're working as tabs along the top, so switching between T-05 and T-07 is a single tap, and a half-entered order is still there when you come back.",
         "A search field takes a short code or a dish name, the running list shows quantities and prices, and the total updates as you add. When the guests are happy, one large button fires the KOT.",
       ],
-      photo: { src: `${SCENE}/captain-handheld.png`, alt: "A rugged Jamanvar captain handheld showing Table T-07 with a short-code search, order lines, running total and a Fire KOT button" },
+      photo: { visual: "captain" },
     },
     {
       title: "Notes that reach the person cooking",
@@ -245,7 +246,7 @@ export const PRODUCT_DETAILS: Record<string, ProductDetail[]> = {
         "Kitchen notes are captured live, at the moment the guest says them, as quick chips or free text: spicy, extra mint dip, less oil, no onion or garlic (Jain). They're attached to that item, not to the order as a whole.",
         "On the kitchen screen, the note appears right beside the dish it belongs to. The person plating a paneer tikka reads \"spicy, extra mint dip\" without anybody having to repeat it.",
       ],
-      photo: { src: `${SCENE}/captain-notes.png`, alt: "A Jamanvar captain handheld showing kitchen note options for Paneer Tikka Angara beside the matching ticket on the kitchen screen" },
+      photo: { visual: "captain-notes" },
     },
   ],
 
@@ -265,7 +266,7 @@ export const PRODUCT_DETAILS: Record<string, ProductDetail[]> = {
         "A QR code belongs to a specific table, and it sits on the table where the guests can see it, with your Jamanvar branding and the table number. An order placed through it lands on that table's tab automatically.",
         "Nobody has to ask \"which table was that?\" and nobody has to move items from one bill to another. The floor plan updates as soon as the order arrives, the same way it would for a captain's order.",
       ],
-      photo: { src: `${SCENE}/qr-stand.png`, alt: "A table tent card with the Jamanvar logo, the words Scan to order, a QR code and the table number 07 standing on a restaurant table" },
+      photo: { visual: "qr-tent" },
     },
     {
       title: "Menu in, order out",
@@ -273,7 +274,7 @@ export const PRODUCT_DETAILS: Record<string, ProductDetail[]> = {
         "On the guest's phone, the menu is organised by category with each dish's name, veg mark and price. Adding a dish is one tap, and a running total shows before the order goes.",
         "Once it's sent, the guest sees confirmation and the order joins exactly the same live queue as a captain's: split by station, shown on the kitchen screen or thermal printer, with its notes attached. The kitchen never has to think about where it came from.",
       ],
-      photo: { src: `${SCENE}/qr-phone.png`, alt: "Two phones showing the Jamanvar guest menu with categories and prices, and an order-sent confirmation for Table 07" },
+      photo: { visual: "qr" },
     },
   ],
 };
@@ -424,6 +425,24 @@ export const PRODUCT_EXTRAS: Record<string, ProductExtras> = {
       { question: "Will guests see the same menu as our POS?", answer: "The menu comes from your Jamanvar menu, so what guests order matches what your kitchen and cashier see." },
     ],
   },
+  kiosk: {
+    beforeAfter: [
+      { topic: "The lunch queue", without: "Everyone waits to order with one person at the counter.", with: "Guests who know what they want order on the kiosk themselves." },
+      { topic: "Customising a dish", without: "Options are shouted across the counter and misheard.", with: "Guests pick options on screen, and they go to the kitchen as chosen." },
+      { topic: "Combos", without: "Combos depend on the cashier remembering to offer them.", with: "Your combo deals are suggested on screen while the guest orders." },
+      { topic: "Collecting the order", without: "Names are called out over the noise.", with: "Every order has a token number." },
+    ],
+    useCases: [
+      { title: "Cafés and quick-service counters", body: "When most guests already know their order, a kiosk takes the waiting out of the queue and frees the counter for payments and pickups." },
+      { title: "Food courts and takeaway counters", body: "Takeaway-only kiosks skip the table step entirely: choose, pay and collect with a token." },
+      { title: "Restaurants with patchy internet", body: "The kiosk keeps taking orders offline, with payment at the counter, and syncs when the connection returns." },
+    ],
+    setupNote: "Each kiosk is activated with a key from your restaurant account, and shows the same menu, photos and combos you manage in Jamanvar.",
+    moreFaqs: [
+      { question: "Can guests get a receipt on their phone?", answer: "Yes. Besides printing, the kiosk can send the receipt by email or WhatsApp." },
+      { question: "How are kiosks managed?", answer: "Kiosk Admin lets you manage your kiosk devices, their menu catalogues, visual themes and terminal status." },
+    ],
+  },
 };
 
 // Where each product sits in the restaurant flow (stage ids come from
@@ -490,6 +509,14 @@ export const PRODUCT_FLOW: Record<string, ProductFlow> = {
     intro: "QR Ordering is another way into the very first step of the flow, and from there an order behaves exactly like any other.",
     stageNotes: {
       order: "Guests scan the table's QR code and order from their phone. Items and notes join the same live queue as captain orders, straight into POS and the kitchen.",
+    },
+  },
+  kiosk: {
+    title: "Where the kiosk sits in the flow",
+    intro: "The kiosk is another way into the very first step: the guest places the order themselves, and from there it goes to the kitchen like any other.",
+    stageNotes: {
+      order: "Guests choose dine-in or takeaway, build their order with options and combos, and pay by UPI or choose to pay at the counter.",
+      kitchen: "The order goes to the kitchen, and the guest collects it with the token number shown on screen and on the receipt.",
     },
   },
 };

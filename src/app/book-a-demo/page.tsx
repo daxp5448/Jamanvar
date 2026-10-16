@@ -1,102 +1,80 @@
 import type { Metadata } from "next";
-import { Sparkles, ShieldCheck } from "lucide-react";
-import { InternalNavbar } from "@/components/internal/InternalNavbar";
-import { Footer } from "@/components/Footer";
-import { WatermarkOverlay } from "@/components/WatermarkOverlay";
-import { ProductMedia } from "@/components/internal/ProductMedia";
-import { BookDemoForm } from "@/components/internal/BookDemoForm";
-import { PRODUCTS } from "@/content/products";
+import { Check, Phone } from "lucide-react";
+import { Breadcrumbs } from "@/components/sections/Breadcrumbs";
+import { DemoRequestForm } from "@/components/site/DemoRequestForm";
+import { DeviceFrame } from "@/components/site/DeviceFrame";
+import { CONTACT } from "@/content/navigation";
+import { OG_IMAGE } from "@/content/brand";
 
 export const metadata: Metadata = {
   title: "Book a Demo | Jamanvar Restaurant POS",
   description:
-    "See Jamanvar in action on your own menu and floor plan. Book a free, 1-on-1 demo covering POS billing, kitchen display, table management, inventory and analytics.",
+    "See Jamanvar on your own menu and floor plan. Book a one-to-one walkthrough of billing, kitchen display, captain and QR ordering, tables, inventory and reports.",
   alternates: { canonical: "/book-a-demo" },
   openGraph: {
     title: "Book a Demo | Jamanvar Restaurant POS",
-    description: "Tell us about your restaurant. We'll show you how Jamanvar fits your operation.",
+    description: "Tell us about your restaurant. We'll show you how Jamanvar fits the way you serve.",
     type: "website",
-    images: [{ url: "/images/jamanvar/logo.jpg", width: 1200, height: 1200, alt: "Jamanvar Restaurant POS" }],
+    images: [OG_IMAGE],
   },
 };
 
-const ECOSYSTEM_LINKS = PRODUCTS.filter((p) =>
-  ["captain", "pos", "kds", "hardware"].includes(p.slug)
-);
+const EXPECT = [
+  "A walkthrough around your own menu, tables and sections",
+  "The modules that fit your restaurant, and the ones you can skip",
+  "Answers on printers, terminals and devices you already own",
+  "How setup, staff training and going live would work for you",
+];
 
 export default function BookADemoPage() {
   return (
-    <main className="min-h-screen bg-jamanvar-cream-100 text-jamanvar-navy-950 selection:bg-jamanvar-saffron-200 selection:text-jamanvar-navy-900 relative">
-      <WatermarkOverlay />
-      <InternalNavbar />
+    <section className="bg-ivory">
+      <div className="shell grid gap-12 pb-20 pt-10 sm:pt-14 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16 lg:pb-28">
+        <div>
+          <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Book a demo" }]} className="mb-8" />
+          <p className="eyebrow">Book a demo</p>
+          <h1 className="display-xl mt-4">See Jamanvar working with your restaurant.</h1>
+          <p className="lead mt-6">
+            Tell us a little about your restaurant. The Ahmedabad team will prepare a walkthrough around the way you actually
+            serve. No commitment.
+          </p>
 
-      <section className="pt-32 pb-12 sm:pt-40 sm:pb-16 bg-jamanvar-navy-950 text-white relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-jamanvar-saffron-500/15 rounded-full blur-3xl pointer-events-none" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/15 text-xs font-bold text-jamanvar-saffron-400 mb-4">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>1-ON-1 PRODUCT WALKTHROUGH</span>
+          <h2 className="mt-10 text-sm font-bold uppercase tracking-[0.08em] text-ink">What the demo covers</h2>
+          <ul className="mt-4 space-y-3">
+            {EXPECT.map((e) => (
+              <li key={e} className="flex gap-3 text-[0.98rem] leading-7 text-ink-soft">
+                <span className="mt-1.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand text-ink-950">
+                  <Check className="h-3 w-3" strokeWidth={3} aria-hidden="true" />
+                </span>
+                {e}
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-10 hidden items-end gap-6 lg:flex">
+            <DeviceFrame screen="captain" className="max-w-[9.5rem]" />
+            <div className="flex-1 pb-2">
+              <DeviceFrame screen="kds" />
             </div>
-            <h1 className="text-3xl sm:text-6xl font-extrabold tracking-tight leading-tight mb-4">
-              See Jamanvar{" "}
-              <span className="font-serif italic font-normal text-jamanvar-saffron-400">in action.</span>
-            </h1>
-            <p className="text-sm sm:text-lg text-white/75 leading-relaxed font-normal">
-              Tell us about your restaurant. Our Ahmedabad team will configure a live walkthrough on your actual menu, table layout and printer hardware.
-            </p>
+          </div>
+
+          <p className="mt-10 flex items-center gap-2 text-[0.9375rem] text-ink-muted">
+            <Phone className="h-4 w-4 text-brand-text" aria-hidden="true" />
+            Rather talk now? Call{" "}
+            <a href={`tel:${CONTACT.phones[0].tel}`} className="font-bold text-ink hover:text-brand-text">
+              {CONTACT.phones[0].display}
+            </a>
+          </p>
+        </div>
+
+        <div className="self-start rounded-panel border border-line bg-surface p-6 shadow-lift sm:p-10 lg:sticky lg:top-28">
+          <h2 className="display-md">Request a demo</h2>
+          <p className="mt-3 text-[0.98rem] leading-7 text-ink-muted">Fields marked * are required. It takes about a minute.</p>
+          <div className="mt-8">
+            <DemoRequestForm intent="demo" />
           </div>
         </div>
-      </section>
-
-      <section className="py-12 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-          {/* Form */}
-          <div className="lg:col-span-7">
-            <div className="p-6 sm:p-10 rounded-3xl bg-white border border-jamanvar-navy-900/10 shadow-card">
-              <div className="mb-6">
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-jamanvar-navy-950 mb-2">
-                  Tell us about your restaurant
-                </h2>
-                <p className="text-xs sm:text-sm text-jamanvar-navy-900/70 leading-relaxed">
-                  Fill in your details below. You can also connect directly via email or WhatsApp after submitting.
-                </p>
-              </div>
-              <BookDemoForm />
-            </div>
-          </div>
-
-          {/* Side panel */}
-          <div className="lg:col-span-5 space-y-6">
-            <div className="p-6 sm:p-8 rounded-3xl bg-jamanvar-navy-950 text-white border border-white/10 shadow-card">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-jamanvar-saffron-400 mb-4">
-                Explore the connected ecosystem
-              </h3>
-              <div className="space-y-2.5">
-                {ECOSYSTEM_LINKS.map((p) => (
-                  <a
-                    key={p.slug}
-                    href={`/products/${p.slug}`}
-                    className="flex items-center justify-between px-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-jamanvar-saffron-500/50 transition-colors text-xs sm:text-sm font-semibold"
-                  >
-                    <span>{p.name}</span>
-                    <span className="text-jamanvar-saffron-400">→</span>
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            <ProductMedia variant="pos" />
-
-            <div className="p-4 rounded-2xl bg-white border border-jamanvar-saffron-500/20 text-xs text-jamanvar-navy-900/75 shadow-subtle flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-jamanvar-saffron-600 shrink-0" />
-              <span>No commitment required. Our onboarding specialist responds within 2 hours during business hours.</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <Footer />
-    </main>
+      </div>
+    </section>
   );
 }

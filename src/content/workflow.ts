@@ -1,6 +1,6 @@
-// The restaurant operational flow, as already established by the
-// Home page's RestaurantFlow section. Written independently for the
-// dedicated /how-it-works page, same facts and figures.
+// The restaurant operational flow used by the Home, /how-it-works and product
+// pages. A stage only carries a `metric` when products.ts states the same
+// figure; there are no measured customer results behind any of them.
 
 export interface WorkflowStage {
   id: string;
@@ -8,8 +8,8 @@ export interface WorkflowStage {
   label: string;
   title: string;
   description: string;
-  metric: string;
-  metricLabel: string;
+  metric?: string;
+  metricLabel?: string;
   detail: string;
   href: string;
 }
@@ -19,23 +19,23 @@ export const WORKFLOW_STAGES: WorkflowStage[] = [
     id: "order",
     step: "01",
     label: "ORDER",
-    title: "Captain & QR table ordering",
+    title: "Taking the order",
     description:
-      "Captains punch orders table-side on Android handhelds, or guests scan the table QR code to order directly. Items, seat numbers and kitchen notes are captured instantly.",
-    metric: "< 15 sec",
-    metricLabel: "Order punching time",
-    detail: "Zero misplaced paper slips or communication lag with the kitchen.",
+      "Captains punch orders table-side on Android handhelds, guests order from the table QR or a self-ordering kiosk, and takeaway and delivery customers can order on WhatsApp. Items and kitchen notes are captured once.",
+    metric: "Under 15 sec",
+    metricLabel: "To punch an order on a captain handheld",
+    detail: "No paper slips to misplace between the table and the kitchen.",
     href: "/products/captain",
   },
   {
     id: "pos",
     step: "02",
     label: "POS",
-    title: "3-second billing",
+    title: "Billing at the counter",
     description:
       "Orders route straight into the POS as a live table tab. Items can be added, split, or discounted, with GST calculated automatically as the order comes together.",
-    metric: "3 sec",
-    metricLabel: "Average billing time",
+    metric: "About 3 sec",
+    metricLabel: "To bill a table by short code",
     detail: "Short-code item search keeps billing moving even during rush hours.",
     href: "/products/pos",
   },
@@ -43,23 +43,19 @@ export const WORKFLOW_STAGES: WorkflowStage[] = [
     id: "kitchen",
     step: "03",
     label: "KITCHEN",
-    title: "Real-time KDS & KOT routing",
+    title: "Kitchen display and KOT routing",
     description:
-      "Orders instantly split and route to specific kitchen stations — Tandoor, Curry, Bar, Desserts — on screens or thermal printers.",
-    metric: "0 sec",
-    metricLabel: "Transmission lag",
-    detail: "Color-coded prep timers alert chefs before orders exceed target times.",
+      "Orders split and route to their kitchen stations, such as Tandoor, Curry, Bar and Desserts, on screens or thermal printers.",
+    detail: "Colour-coded timers show which tickets are approaching overdue.",
     href: "/products/kds",
   },
   {
     id: "table",
     step: "04",
     label: "TABLE",
-    title: "Visual table floor orchestration",
+    title: "A live floor plan",
     description:
-      "Live, color-coded status across every table — available, occupied, running KOT, billed. Merge tables or manage reservations with one tap.",
-    metric: "+35%",
-    metricLabel: "Table turn velocity",
+      "Live, colour-coded status for every table: available, occupied, billing or reserved. Merge tables or transfer a running order in one tap.",
     detail: "Waitstaff always know dining duration and pending orders at a glance.",
     href: "/products/tables",
   },
@@ -69,22 +65,23 @@ export const WORKFLOW_STAGES: WorkflowStage[] = [
     label: "BILL & PAY",
     title: "Split billing & multi-mode settlement",
     description:
-      "Generate split bills by seat or item, apply discounts, and settle via cash, card or dynamic table-specific UPI QR — with CGST/SGST auto-calculated.",
-    metric: "Instant",
-    metricLabel: "UPI verification",
-    detail: "E-invoicing with customized brand receipt headers, reconciled in real time.",
+      "Split bills by seat or item, apply discounts, and settle by cash, card, Khaata or a table-specific UPI QR, with CGST and SGST calculated automatically.",
+    detail: "Receipts carry your own brand header, and each payment is reconciled as it settles.",
     href: "/products/pos",
   },
   {
     id: "insight",
     step: "06",
     label: "INSIGHT",
-    title: "Owner mobile app & daily P&L",
+    title: "Owner reports on your phone",
     description:
       "Every settlement feeds live into your phone. See net sales, top sellers, category margins and raw material deductions as they happen.",
-    metric: "Live 24/7",
-    metricLabel: "Owner sync",
     detail: "Automated end-of-day summary, no manual tallying required.",
     href: "/products/analytics",
   },
 ];
+
+/** Display name for a stage label, e.g. "BILL & PAY" → "Bill & pay", "POS" stays "POS". */
+export function stageName(label: string): string {
+  return label === "POS" ? label : label.charAt(0) + label.slice(1).toLowerCase();
+}

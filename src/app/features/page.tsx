@@ -1,315 +1,242 @@
-"use client";
-
-import React from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
-import { InternalNavbar } from "@/components/internal/InternalNavbar";
-import { Footer } from "@/components/Footer";
-import { WatermarkOverlay } from "@/components/WatermarkOverlay";
-import {
-  CreditCard,
-  ChefHat,
-  LayoutGrid,
-  Boxes,
-  TrendingUp,
-  WifiOff,
-  ShieldCheck,
-  CheckCircle2,
-  ArrowRight,
-  Printer,
-  Clock,
-  Sparkles,
-  Split,
-  QrCode,
-  FileSpreadsheet,
-} from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
+import { PageHero } from "@/components/sections/PageHero";
+import { PageCTA } from "@/components/sections/PageCTA";
+import { DeviceFrame, ScreenCaption } from "@/components/site/DeviceFrame";
+import type { ScreenId } from "@/content/screens";
+import { cn } from "@/lib/utils";
 
-const FEATURE_PRODUCT_SLUGS: Record<string, { slug: string; name: string }> = {
-  pos: { slug: "pos", name: "Jamanvar POS" },
-  kitchen: { slug: "kds", name: "Jamanvar KDS" },
-  tables: { slug: "tables", name: "Table & Floor Management" },
-  inventory: { slug: "inventory", name: "Recipe-Level Inventory" },
-  analytics: { slug: "analytics", name: "Analytics & Insights" },
-  hardware: { slug: "hardware", name: "Offline & Hardware" },
+export const metadata: Metadata = {
+  title: "Features | Jamanvar Restaurant POS, KDS & Ordering",
+  description:
+    "Every Jamanvar capability in one place: billing and GST invoices, captain, QR, kiosk and WhatsApp ordering, kitchen display, floor plan, recipe inventory, owner reports and offline mode.",
+  alternates: { canonical: "/features" },
 };
 
-export default function FeaturesPage() {
-  const modules = [
-    {
-      id: "pos",
-      icon: CreditCard,
-      badge: "01 / FRONT DESK",
-      title: "Touch POS & 3-Second Billing",
-      headline: "The fastest billing counter experience in Indian dining.",
-      description:
-        "Engineered for high-pressure rush hours. Quick numeric item codes, one-touch category filtering, item modifiers, running table tabs, and instant thermal printing in under 3 seconds.",
-      highlights: [
-        "Lightning-fast item search and short-code shortcuts (e.g. PT01 for Paneer Tikka)",
-        "Instant split billing (by item, seat, or equal amount)",
-        "Multi-tender payments: Cash, UPI QR, Card, and Customer Credit (Khaata)",
-        "Supports 58mm & 80mm ESC/POS thermal printers via USB, LAN, and Bluetooth",
-        "GST-compliant itemized invoicing with automated CGST & SGST calculation",
-        "Cash drawer auto-trigger and anti-theft cash tallying at shift close",
-      ],
-    },
-    {
-      id: "kitchen",
-      icon: ChefHat,
-      badge: "02 / BACK OF HOUSE",
-      title: "Interactive Kitchen Display System (KDS)",
-      headline: "Eliminate lost paper tickets and kitchen shouting.",
-      description:
-        "Route orders from tables to hot lines instantly. Color-coded ticket timers warn chefs before prep delays escalate, keeping every station synchronized.",
-      highlights: [
-        "Instant KOT routing straight to kitchen screens or multi-station KOT printers",
-        "Color-coded urgency timers: Green (0-10m), Amber (10-18m), Red (Overdue 18m+)",
-        "Item-level prep status toggling: Cooking, Done, Dispatched",
-        "Custom chef notes support: 'No onion/garlic (Jain)', 'Extra spicy', 'Less oil'",
-        "Station filtering: Separate Tandoor, Chinese/Mains, Bar/Mocktail orders",
-        "Bump-bar and touchscreen gesture support for busy kitchen hands",
-      ],
-    },
-    {
-      id: "tables",
-      icon: LayoutGrid,
-      badge: "03 / FLOOR MANAGEMENT",
-      title: "Table & Floor Plan Management",
-      headline: "Complete dining room visibility at a single glance.",
-      description:
-        "Visualize your entire restaurant floor across multiple dining zones (Main Hall, Terrace, AC Family Room, Banquet, Bar). Track real-time occupancy, running bills, and server assignments.",
-      highlights: [
-        "Color-coded visual table status: Available (Green), Occupied (Navy), Billing (Amber), Reserved (Purple)",
-        "Multi-floor and multi-section support with custom table capacities",
-        "One-tap table merging for large family gatherings or birthday parties",
-        "Table transfer / shift orders without re-punching items",
-        "Live seated timer showing exact table dwell time",
-        "Waiter / Captain allocation tracking for accountability and service tips",
-      ],
-    },
-    {
-      id: "inventory",
-      icon: Boxes,
-      badge: "04 / STOCK & RECIPES",
-      title: "Recipe-Level Raw Inventory Tracking",
-      headline: "Stop raw material shrinkage before it hits your bottom line.",
-      description:
-        "Link menu items to underlying ingredients. When a Paneer Tikka is sold, Jamanvar automatically deducts exact quantities of paneer, butter, and spices from your digital pantry.",
-      highlights: [
-        "Recipe & BOM (Bill of Materials) mapping for all menu dishes",
-        "Automatic stock depletion upon KOT punch with fractional gram precision",
-        "Low-stock threshold alerts preventing mid-service stockouts",
-        "Daily wastage logging (spoilage, kitchen sampling, customer returns)",
-        "Vendor purchase order (PO) generation and GRN (Goods Received Note) entry",
-        "Real-time food cost and gross margin percentage calculation per dish",
-      ],
-    },
-    {
-      id: "analytics",
-      icon: TrendingUp,
-      badge: "05 / OWNER INTELLIGENCE",
-      title: "Live Business Telemetry & Reports",
-      headline: "Track your restaurant's performance from anywhere on your phone.",
-      description:
-        "No waiting for manual day-end tallying. Jamanvar provides instant mobile access to net sales, hourly sales velocity, top selling items, and staff performance.",
-      highlights: [
-        "Real-time revenue dashboard accessible via mobile, tablet, or desktop browser",
-        "Peak-hour sales velocity heatmaps to optimize kitchen prep and staff shifts",
-        "Item profitability matrix (identify high-margin stars vs. loss leaders)",
-        "End-of-day Cash / UPI / Card reconciliation with variance indicators",
-        "Exportable Excel / CSV reports formatted for CA accounting & GST filing",
-        "Historical comparison: Track month-over-month growth and average table ticket",
-      ],
-    },
-    {
-      id: "hardware",
-      icon: WifiOff,
-      badge: "06 / RESILIENCE",
-      title: "100% Offline Capability & Hardware Resilience",
-      headline: "Your restaurant keeps running even when the internet stops.",
-      description:
-        "Indian restaurants face unpredictable internet. Jamanvar's offline-first architecture stores everything securely in the local network so service never halts.",
-      highlights: [
-        "Complete offline billing, table punching, and KDS routing without active internet",
-        "Automatic bi-directional cloud synchronization once connectivity is restored",
-        "Compatible with all standard ESC/POS USB, Ethernet/LAN, and Bluetooth printers",
-        "Supports Windows PCs, Android touch terminals, iPad/iPhones, and Android tablets",
-        "Zero vendor lock-in on hardware — reuse your existing equipment",
-        "Local backup snapshots guarding against accidental hardware shutdown",
-      ],
-    },
-  ];
+interface Module {
+  id: string;
+  label: string;
+  title: string;
+  description: string;
+  highlights: string[];
+  screens: ScreenId[];
+  links: { href: string; name: string }[];
+}
 
-  return (
-    <main className="min-h-screen bg-jamanvar-cream-100 text-jamanvar-navy-950 selection:bg-jamanvar-saffron-200 selection:text-jamanvar-navy-900 relative">
-      <WatermarkOverlay />
-      <InternalNavbar />
+const MODULES: Module[] = [
+  {
+    id: "pos",
+    label: "Billing and payments",
+    title: "Touch POS and fast billing",
+    description:
+      "Built for the rush. Numeric short codes, one-touch categories, running table tabs and thermal printing keep the counter moving.",
+    highlights: [
+      "Short-code item search, for example PT01 for Paneer Tikka, plus one-tap category filters",
+      "Split billing by item, by seat or into equal amounts",
+      "Cash, UPI QR, card and customer credit (Khaata)",
+      "58mm and 80mm ESC/POS thermal printers over USB, LAN and Bluetooth",
+      "GST invoices with CGST and SGST calculated automatically",
+      "Separate cashier logins and cash drawer tallies at shift close",
+    ],
+    screens: ["pos"],
+    links: [{ href: "/products/pos", name: "Jamanvar POS" }],
+  },
+  {
+    id: "ordering",
+    label: "Guest and staff ordering",
+    title: "Every way to take an order",
+    description:
+      "Captains punch orders on Android handhelds, guests order from a table QR or a self-ordering kiosk, and takeaway and delivery customers can order on WhatsApp. Every order reaches the same kitchen.",
+    highlights: [
+      "Full order punched table-side, with seat numbers and kitchen notes",
+      "One tap fires the KOT to the right station",
+      "Switch between tables without losing a half-entered order",
+      "A QR code for every table, so guest orders land on the right tab",
+      "Captain and guest orders at the same table share one bill",
+      "Self-ordering kiosk: dine-in or takeaway, options and combos, UPI QR or pay at the counter, and a token number",
+      "WhatsApp ordering for takeaway and home delivery, paid with a link in the chat",
+    ],
+    screens: ["qr", "captain"],
+    links: [
+      { href: "/products/captain", name: "Captain Ordering" },
+      { href: "/products/qr-ordering", name: "QR Ordering" },
+      { href: "/products/kiosk", name: "Self-Ordering Kiosk" },
+      { href: "/products/whatsapp-ordering", name: "WhatsApp Ordering" },
+    ],
+  },
+  {
+    id: "kitchen",
+    label: "Kitchen display",
+    title: "Kitchen display and KOT routing",
+    description:
+      "Orders route from tables to the stations that make them. Colour-coded timers flag a slow ticket before the guest notices.",
+    highlights: [
+      "KOTs routed to kitchen screens or station printers",
+      "Colour-coded timers: 0 to 10 minutes, 10 to 18 minutes, overdue after 18",
+      "Item status per dish: cooking, done, dispatched",
+      "Kitchen notes such as “No onion or garlic (Jain)”, “Extra spicy”, “Less oil”",
+      "Station filtering, for example Tandoor, Chinese and mains, Bar",
+      "Bump-bar and touchscreen support for busy kitchen hands",
+    ],
+    screens: ["kds"],
+    links: [{ href: "/products/kds", name: "Jamanvar KDS" }],
+  },
+  {
+    id: "tables",
+    label: "Floor management",
+    title: "Table and floor plan",
+    description:
+      "Every dining area on one screen, from the main hall to the terrace, with each table's status, running bill and captain.",
+    highlights: [
+      "Colour-coded status: available, occupied, billing and reserved",
+      "Multiple sections with custom table capacities",
+      "One-tap table merging for large parties",
+      "Transfer a running order to another table without re-punching",
+      "Live seated time for every table",
+      "Captain assignment shown on every table",
+    ],
+    screens: ["tables"],
+    links: [{ href: "/products/tables", name: "Table & Floor Management" }],
+  },
+  {
+    id: "inventory",
+    label: "Stock and recipes",
+    title: "Recipe-level inventory",
+    description:
+      "Link each dish to its ingredients. When a Paneer Tikka is sold, the paneer, butter and spices it uses come out of your digital pantry.",
+    highlights: [
+      "Recipe (bill of materials) mapping for menu dishes",
+      "Automatic stock deduction on every KOT, down to the gram",
+      "Low-stock alerts before an ingredient runs out mid-service",
+      "Daily wastage logging for spoilage, sampling and returns",
+      "Vendor purchase orders and goods received entries",
+      "Food cost and margin percentage per dish",
+    ],
+    screens: ["inventory"],
+    links: [{ href: "/products/inventory", name: "Recipe-Level Inventory" }],
+  },
+  {
+    id: "analytics",
+    label: "Owner reports",
+    title: "Reports and live insights",
+    description:
+      "No waiting for a manual day-end tally. Net sales, hourly sales, best sellers and settlement are on your phone as service happens.",
+    highlights: [
+      "Revenue dashboard on mobile, tablet or desktop browser",
+      "Peak-hour sales to plan kitchen prep and staff shifts",
+      "Item profitability: which best sellers actually earn their place",
+      "End-of-day cash, UPI and card reconciliation",
+      "Exportable reports for your accountant and GST filing",
+      "Month-over-month comparison and average bill value",
+    ],
+    screens: ["reports", "owner"],
+    links: [{ href: "/products/analytics", name: "Analytics & Insights" }],
+  },
+  {
+    id: "hardware",
+    label: "Offline and hardware",
+    title: "Offline mode and hardware",
+    description:
+      "Internet in Indian restaurants is unpredictable. Jamanvar handles orders and bills on local devices so service keeps going.",
+    highlights: [
+      "Offline billing, order punching and KDS routing without active internet",
+      "Automatic two-way cloud sync once connectivity returns",
+      "Standard ESC/POS printers over USB, Ethernet/LAN and Bluetooth",
+      "Windows PCs, Android terminals and tablets, and iPad",
+      "Reuse the equipment you already have, or start with a tested kit",
+    ],
+    screens: ["offline"],
+    links: [{ href: "/products/hardware", name: "Offline & Hardware" }],
+  },
+];
 
-      {/* Hero Header */}
-      <section className="pt-32 pb-14 sm:pt-40 sm:pb-20 bg-jamanvar-navy-950 text-white relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-jamanvar-saffron-500/15 rounded-full blur-3xl pointer-events-none" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/15 text-xs font-bold text-jamanvar-saffron-400 mb-4">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>FULL ARCHITECTURE &amp; CAPABILITIES</span>
-          </div>
-
-          <h1 className="text-3xl sm:text-6xl font-extrabold tracking-tight leading-tight mb-4">
-            Built for the speed of
-            <br />
-            <span className="font-serif italic font-normal text-jamanvar-saffron-400">
-              Indian restaurant hospitality.
-            </span>
-          </h1>
-
-          <p className="text-sm sm:text-lg text-white/75 max-w-2xl mx-auto leading-relaxed font-normal mb-8">
-            Explore every capability of Jamanvar — from lightning front-desk billing and synchronized kitchen screens to recipe-level stock deductions and offline resilience.
-          </p>
-
-          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-xs">
-            {modules.map((m) => (
-              <a
-                key={m.id}
-                href={`#${m.id}`}
-                className="px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 text-white font-medium transition-colors"
-              >
-                {m.title.split("&")[0].split("(")[0]}
-              </a>
-            ))}
-          </div>
+function ModuleVisual({ screens }: { screens: ScreenId[] }) {
+  if (screens.length === 2 && (screens[0] === "qr" || screens[1] === "captain")) {
+    return (
+      <div className="grid grid-cols-2 items-end gap-5 sm:gap-8">
+        <DeviceFrame screen={screens[0]} />
+        <DeviceFrame screen={screens[1]} className="mb-8" />
+      </div>
+    );
+  }
+  if (screens.length === 2) {
+    return (
+      <div className="relative pb-[6%] pr-[18%]">
+        <DeviceFrame screen={screens[0]} />
+        <div className="absolute bottom-0 right-0 w-[24%] min-w-[5.5rem]">
+          <DeviceFrame screen={screens[1]} className="max-w-none" />
         </div>
-      </section>
+      </div>
+    );
+  }
+  return <DeviceFrame screen={screens[0]} />;
+}
 
-      {/* Feature Deep Dive Sections */}
-      <section className="py-12 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 sm:space-y-24">
-        {modules.map((module, idx) => {
-          const Icon = module.icon;
-          const isEven = idx % 2 === 1;
-
-          return (
-            <div
-              key={module.id}
-              id={module.id}
-              className="scroll-mt-28 p-6 sm:p-12 rounded-3xl bg-white border border-jamanvar-navy-900/10 shadow-card relative overflow-hidden"
+export default function FeaturesPage() {
+  return (
+    <>
+      <PageHero
+        badge="All capabilities"
+        title="Every part of restaurant service, connected."
+        description="From billing and table-side ordering to the kitchen pass, the pantry and the owner's phone. Here is everything Jamanvar does, module by module."
+        breadcrumbs={[{ label: "Home", href: "/" }, { label: "All capabilities" }]}
+      >
+        <nav aria-label="Jump to a module" className="flex flex-wrap gap-2">
+          {MODULES.map((m) => (
+            <a
+              key={m.id}
+              href={`#${m.id}`}
+              className="rounded-full border border-line-strong bg-surface px-3.5 py-2 text-sm font-semibold text-ink-soft transition-colors hover:border-brand hover:text-ink"
             >
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-                {/* Left details */}
-                <div className={isEven ? "lg:col-span-6 lg:order-2" : "lg:col-span-6"}>
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="text-xs font-mono font-bold text-jamanvar-saffron-700 bg-jamanvar-saffron-50 px-2.5 py-0.5 rounded-md border border-jamanvar-saffron-500/20">
-                      {module.badge}
-                    </span>
-                  </div>
+              {m.label}
+            </a>
+          ))}
+        </nav>
+      </PageHero>
 
-                  <h2 className="text-2xl sm:text-4xl font-extrabold text-jamanvar-navy-950 tracking-tight mb-2">
-                    {module.title}
-                  </h2>
-                  <p className="text-sm sm:text-base font-semibold text-jamanvar-saffron-700 mb-3">
-                    {module.headline}
-                  </p>
-                  <p className="text-xs sm:text-sm text-jamanvar-navy-900/70 leading-relaxed mb-6">
-                    {module.description}
-                  </p>
-
-                  <div className="space-y-2.5 pt-4 border-t border-jamanvar-navy-900/10 text-xs">
-                    {module.highlights.map((h, i) => (
-                      <div key={i} className="flex items-start gap-2.5">
-                        <CheckCircle2 className="w-4 h-4 text-jamanvar-saffron-600 shrink-0 mt-0.5" />
-                        <span className="text-jamanvar-navy-900/80 leading-relaxed">{h}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {FEATURE_PRODUCT_SLUGS[module.id] && (
-                    <div className="mt-6">
-                      <Link
-                        href={`/products/${FEATURE_PRODUCT_SLUGS[module.id].slug}`}
-                        className="inline-flex items-center gap-1.5 text-xs font-bold text-jamanvar-navy-900 hover:text-jamanvar-saffron-700"
-                      >
-                        <span>Explore {FEATURE_PRODUCT_SLUGS[module.id].name} in detail</span>
-                        <ArrowRight className="w-3.5 h-3.5 text-jamanvar-saffron-500" />
-                      </Link>
-                    </div>
-                  )}
-
-                  <div className="mt-8 pt-6 border-t border-jamanvar-navy-900/10 flex flex-wrap items-center gap-4">
-                    <Link
-                      href="/book-a-demo"
-                      className="px-5 py-2.5 rounded-xl bg-jamanvar-navy-900 hover:bg-jamanvar-navy-800 text-white font-bold text-xs flex items-center gap-1.5 transition-colors"
-                    >
-                      <span>Request Live Demo</span>
-                      <ArrowRight className="w-3.5 h-3.5 text-jamanvar-saffron-400" />
-                    </Link>
-                  </div>
-                </div>
-
-                {/* Right Decorative Feature Card */}
-                <div className={isEven ? "lg:col-span-6 lg:order-1" : "lg:col-span-6"}>
-                  <div className="p-6 sm:p-10 rounded-3xl bg-jamanvar-navy-950 text-white border border-jamanvar-saffron-500/30 shadow-2xl relative overflow-hidden">
-                    <div className="absolute -top-10 -right-10 w-40 h-40 bg-jamanvar-saffron-500/15 rounded-full blur-2xl pointer-events-none" />
-
-                    <div className="flex items-center justify-between mb-6">
-                      <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/15 flex items-center justify-center text-jamanvar-saffron-400">
-                        <Icon className="w-6 h-6" />
-                      </div>
-                      <span className="text-[11px] font-mono text-white/50 uppercase tracking-widest">
-                        OPERATIONAL MODULE
-                      </span>
-                    </div>
-
-                    <h3 className="text-xl font-bold text-white mb-2">{module.title}</h3>
-                    <p className="text-xs text-white/70 leading-relaxed mb-6">
-                      Fully integrated with the unified Jamanvar cloud and local network engine.
-                    </p>
-
-                    <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2 text-xs">
-                      <div className="flex justify-between text-white/60">
-                        <span>Speed Latency:</span>
-                        <span className="font-mono text-emerald-400">&lt; 15ms Local Execution</span>
-                      </div>
-                      <div className="flex justify-between text-white/60">
-                        <span>Network Mode:</span>
-                        <span className="text-white">Offline Local Mesh + Cloud Sync</span>
-                      </div>
-                      <div className="flex justify-between text-white/60">
-                        <span>Security:</span>
-                        <span className="text-jamanvar-saffron-400">Role-Based Access Control</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+      {MODULES.map((m, i) => (
+        <section key={m.id} id={m.id} className={cn("section", i % 2 === 0 ? "bg-surface" : "bg-ivory", i > 0 && "border-t border-line")}>
+          <div className="shell grid items-center gap-12 lg:grid-cols-2 lg:gap-12">
+            <div className={cn("reveal", i % 2 === 1 && "lg:order-2")}>
+              <p className="eyebrow">
+                0{i + 1} · {m.label}
+              </p>
+              <h2 className="display-lg mt-4">{m.title}</h2>
+              <p className="mt-5 text-[1.0625rem] leading-[1.7] text-ink-muted">{m.description}</p>
+              <ul className="mt-7 space-y-3">
+                {m.highlights.map((h) => (
+                  <li key={h} className="flex gap-3 text-[0.98rem] leading-7 text-ink-soft">
+                    <Check className="mt-1.5 h-4 w-4 shrink-0 text-brand-text" strokeWidth={3} aria-hidden="true" />
+                    {h}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3">
+                {m.links.map((l) => (
+                  <Link key={l.href} href={l.href} className="link-arrow text-[0.9375rem]">
+                    {l.name} <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                  </Link>
+                ))}
               </div>
             </div>
-          );
-        })}
-      </section>
-
-      {/* Bottom CTA */}
-      <section className="py-16 sm:py-24 bg-jamanvar-navy-950 text-white text-center border-t border-white/10 relative">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl sm:text-5xl font-extrabold mb-4 tracking-tight">
-            Ready to experience Jamanvar in action?
-          </h2>
-          <p className="text-xs sm:text-base text-white/70 max-w-xl mx-auto mb-8 leading-relaxed">
-            Get a 1-on-1 walkthrough configured with your actual restaurant menu, table layout, and printer hardware.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="/contact"
-              className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-jamanvar-saffron-500 hover:bg-jamanvar-saffron-600 text-white font-bold text-xs sm:text-sm shadow-saffron flex items-center justify-center gap-2"
-            >
-              <span>Book a Free Demonstration</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link
-              href="/how-it-works"
-              className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-white/10 hover:bg-white/15 text-white border border-white/15 font-bold text-xs sm:text-sm text-center"
-            >
-              See How It Works
-            </Link>
+            <figure className={cn("reveal", i % 2 === 1 && "lg:order-1")}>
+              <ModuleVisual screens={m.screens} />
+            </figure>
           </div>
-        </div>
-      </section>
+        </section>
+      ))}
 
-      <Footer />
-    </main>
+      <div className="shell">
+        <ScreenCaption className="border-t border-line py-6">All product screens on this page use sample restaurant data.</ScreenCaption>
+      </div>
+
+      <PageCTA
+        title="See the whole service flow on your own menu."
+        description="We'll put together a walkthrough around your tables, your dishes and your printer setup."
+        secondaryLabel="See how it works"
+        secondaryHref="/how-it-works"
+      />
+    </>
   );
 }

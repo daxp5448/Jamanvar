@@ -9,6 +9,13 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  async redirects() {
+    return [
+      // Short, shareable address for the WhatsApp Ordering page.
+      { source: "/whatsapp-ordering", destination: "/products/whatsapp-ordering", permanent: true },
+      { source: "/kiosk", destination: "/products/kiosk", permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;

@@ -28,7 +28,10 @@ export type MockupVariant =
   | "inventory"
   | "customers"
   | "analytics"
-  | "hardware";
+  | "owner"
+  | "hardware"
+  | "kiosk"
+  | "whatsapp";
 
 export type ProductCategory =
   | "POINT OF SALE"
@@ -623,11 +626,114 @@ export const PRODUCTS: Product[] = [
     metaDescription:
       "QR table ordering for restaurants: guests scan a table's QR code and order from their phone, straight into the same kitchen queue as captain orders.",
   },
+  {
+    slug: "kiosk",
+    index: "09",
+    category: "ORDERING",
+    name: "Self-Ordering Kiosk",
+    shortDescription: "Guests order and pay at a touchscreen.",
+    heroLabel: "09 / SELF-ORDERING",
+    heroTitle: "Self-Ordering Kiosk",
+    heroDescription:
+      "A touchscreen where guests choose dine-in or takeaway, browse your menu, customise dishes and pick a combo, then pay by UPI or at the counter. The order goes to the kitchen and the guest gets a token number.",
+    heroMockup: "kiosk",
+    positioningTitle: "Let the queue order itself",
+    positioningParagraphs: [
+      "At lunchtime in a busy café or food court, the queue is made of people who already know what they want. They wait to say it to the one person at the counter, who is also taking payments, answering questions and calling out ready orders.",
+      "The Jamanvar kiosk gives those guests their own screen. They pick a language, choose dine-in or takeaway, browse the menu by category or search it, add options to a dish, and see the combo deals you've set up. They pay by scanning a UPI QR on the screen, or choose to pay at the counter.",
+      "Every order gets a token number and goes to the kitchen, and the receipt can be printed or sent to the guest by email or WhatsApp. If the internet drops, the kiosk keeps taking orders, switches payment to the counter, and syncs once the connection is back.",
+    ],
+    capabilityRows: [
+      { term: "Order type", description: "Guests choose dine-in or takeaway. Each kiosk can offer both or just one." },
+      { term: "Languages", description: "Offer more than one display language and let the guest pick at the start." },
+      { term: "Tables", description: "Dine-in guests can pick their table, or a kiosk can be tied to a default table." },
+      { term: "Menu & search", description: "Browse by category with photos, or search with the on-screen keyboard." },
+      { term: "Customisation", description: "Dish options and modifiers, chosen on screen before the item goes in the cart." },
+      { term: "Combos", description: "Combo deals you've set up are suggested while the guest orders." },
+      { term: "Payment", description: "Pay by UPI QR on the kiosk, or choose to pay at the counter." },
+      { term: "Token & receipt", description: "Each order gets a token number. Receipts print, or go to the guest by email or WhatsApp." },
+      { term: "Offline", description: "Orders are still taken and saved without internet, with payment at the counter, and sync when you're back online." },
+    ],
+    bestFor: "A good fit for cafés, quick-service counters and food courts, where most guests already know what they want.",
+    deepDive: [],
+    connectedTitle: "Orders go straight to your kitchen",
+    connected: ["kds", "pos", "hardware"],
+    workflow: [
+      { label: "KIOSK" },
+      { label: "PAYMENT" },
+      { label: "KITCHEN (KDS)", href: "/products/kds" },
+      { label: "TOKEN" },
+    ],
+    faqs: [
+      {
+        question: "Can guests pay at the kiosk?",
+        answer:
+          "Yes, by scanning a UPI QR shown on the kiosk screen. Guests can also choose to pay at the counter instead, and payment switches to the counter automatically if the kiosk is offline.",
+      },
+      {
+        question: "Does the kiosk work for both dine-in and takeaway?",
+        answer:
+          "Yes. Each kiosk can offer dine-in, takeaway or both. Dine-in guests can pick their table, or you can tie a kiosk to a default table.",
+      },
+      {
+        question: "What happens if the internet goes down?",
+        answer:
+          "The kiosk keeps taking orders and saves them, with payment at the counter, then syncs once the connection is back.",
+      },
+      {
+        question: "What hardware does it run on?",
+        answer:
+          "The kiosk is a Windows desktop app that runs full-screen on a touchscreen. Tell us about your screen and receipt printer when you book a demo and we'll confirm what works.",
+      },
+    ],
+    metaTitle: "Self-Ordering Kiosk | Jamanvar",
+    metaDescription:
+      "A self-ordering touchscreen kiosk for restaurants: dine-in or takeaway, modifiers and combos, UPI QR or pay-at-counter, token numbers and receipts by print, email or WhatsApp.",
+  },
+  {
+    slug: "whatsapp-ordering",
+    index: "10",
+    category: "ORDERING",
+    name: "WhatsApp Ordering",
+    shortDescription: "Takeaway and delivery orders, right inside WhatsApp.",
+    heroLabel: "10 / WHATSAPP ORDERING",
+    heroTitle: "WhatsApp Ordering",
+    heroDescription:
+      "Customers message your restaurant's WhatsApp number, browse your menu, build a cart and choose pickup or home delivery, then pay with a secure link. No app to install and no website to visit.",
+    heroMockup: "whatsapp",
+    positioningTitle: "Take orders where your customers already are",
+    positioningParagraphs: [
+      "Customers already message restaurants on WhatsApp to ask what's on the menu or place a takeaway order. Jamanvar turns that chat into a proper ordering journey with a menu, a cart and an online payment.",
+    ],
+    capabilityRows: [
+      { term: "Menu in chat", description: "Product cards with photo, price and an Add to cart button, or a swipe-able carousel once Meta approves it." },
+      { term: "Cart", description: "Change quantities, edit the cart, and see the total before checkout." },
+      { term: "Pickup or delivery", description: "Share a delivery address or WhatsApp location, or skip it to collect the order." },
+      { term: "Payment", description: "An online payment link in the chat. The kitchen sees the order once payment is confirmed." },
+      { term: "Status updates", description: "Customers are told when the order is accepted, being prepared and ready." },
+    ],
+    bestFor: "A good fit for restaurants with regular takeaway and delivery customers who already reach them on WhatsApp.",
+    deepDive: [],
+    connectedTitle: "Connected to the rest of Jamanvar",
+    connected: ["pos", "kds", "qr-ordering"],
+    workflow: [
+      { label: "WHATSAPP" },
+      { label: "PAYMENT" },
+      { label: "POS", href: "/products/pos" },
+      { label: "KDS", href: "/products/kds" },
+    ],
+    faqs: [],
+    metaTitle: "WhatsApp Ordering for Restaurants | Jamanvar",
+    metaDescription:
+      "Let customers order takeaway and home delivery on WhatsApp: menu cards, a cart, delivery address or pickup, an online payment link and status updates, connected to Jamanvar POS and KDS.",
+  },
 ];
 
 export const PRODUCT_ORDER = [
   "captain",
   "qr-ordering",
+  "kiosk",
+  "whatsapp-ordering",
   "pos",
   "kds",
   "tables",
@@ -638,29 +744,4 @@ export const PRODUCT_ORDER = [
 
 export function getProduct(slug: string): Product | undefined {
   return PRODUCTS.find((p) => p.slug === slug);
-}
-
-export function getProductName(slug: string): string {
-  return PRODUCTS.find((p) => p.slug === slug)?.name ?? slug;
-}
-
-export interface ProductCategoryGroup {
-  category: ProductCategory;
-  products: Product[];
-}
-
-export const PRODUCT_CATEGORIES: ProductCategory[] = [
-  "POINT OF SALE",
-  "KITCHEN",
-  "ORDERING",
-  "FLOOR",
-  "OPERATIONS",
-  "RELIABILITY",
-];
-
-export function groupProductsByCategory(): ProductCategoryGroup[] {
-  return PRODUCT_CATEGORIES.map((category) => ({
-    category,
-    products: PRODUCTS.filter((p) => p.category === category),
-  }));
 }

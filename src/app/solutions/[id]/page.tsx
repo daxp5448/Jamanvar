@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { SolutionPageBody } from "@/components/internal/SolutionPageBody";
+import { SolutionPageBody } from "@/components/sections/SolutionPageBody";
 import { SOLUTIONS, getSolution } from "@/content/solutions";
+import { OG_IMAGE } from "@/content/brand";
 
 export function generateStaticParams() {
   return SOLUTIONS.map((s) => ({ id: s.id }));
@@ -20,7 +21,7 @@ export function generateMetadata({ params }: { params: { id: string } }): Metada
       title: solution.metaTitle,
       description: solution.metaDescription,
       type: "website",
-      images: [{ url: "/images/jamanvar/logo.jpg", width: 1200, height: 1200, alt: solution.navTitle }],
+      images: [OG_IMAGE],
     },
   };
 }

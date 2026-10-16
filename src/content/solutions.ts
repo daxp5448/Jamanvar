@@ -272,7 +272,7 @@ export const SOLUTIONS: Solution[] = [
       "Jamanvar feeds every settled bill into live reporting. Revenue, orders and occupancy update on your phone as the day goes on. Cash, UPI and card are reconciled automatically, so the end-of-day summary is waiting when service ends, with no counting-up required.",
       "Because your dishes are linked to their recipes, you're not just looking at what sold. You see food-cost ratio and margin per dish, your true peak hours, and which of your best sellers earn their menu space. Guest loyalty and repeat visits sit in the same view. Reports export cleanly for your accountant and for GST filing.",
     ],
-    approachPhoto: { src: "/images/jamanvar/trail/analytics.jpg", alt: "Jamanvar live analytics with revenue, orders and an hourly sales chart" },
+    approachPhoto: { visual: "dashboard" },
     outcomes: [
       { term: "Live, not retrospective", description: "Revenue, orders and occupancy on mobile, tablet or desktop, updated as bills settle." },
       { term: "Reconciled by default", description: "Cash, UPI and card settlements are matched automatically, so closing the day is a check, not a chore." },
@@ -288,8 +288,8 @@ export const SOLUTIONS: Solution[] = [
       { title: "The month gets easier", description: "When it's time to file, the reports export cleanly for your accountant, because the underlying numbers have been right all along." },
     ],
     showcase: [
-      { label: "LIVE REVENUE", caption: "Sales, orders and occupancy update on screen while the restaurant is still full.", mockup: "analytics" },
-      { label: "GUEST INSIGHT", caption: "Repeat visits and loyalty sit beside revenue, so you see who keeps coming back.", mockup: "customers" },
+      { label: "LIVE REVENUE", caption: "Sales, orders and occupancy update on screen while the restaurant is still full.", mockup: "owner" },
+      { label: "RECONCILIATION", caption: "Cash, UPI and card settlements are matched to the bills automatically, so closing the day is a check, not a chore.", mockup: "analytics" },
     ],
     bestFor: "Owners who want to see how the restaurant is doing without standing at the register, and anyone who wants to make menu and staffing decisions from real numbers.",
     connectedModules: [
@@ -337,7 +337,7 @@ export const SOLUTIONS: Solution[] = [
       "Jamanvar works on the device in front of you. Orders, KOTs and bills are handled locally, so the kitchen keeps receiving tickets and the counter keeps closing bills, even with no connection at all. When the internet returns, data syncs to the cloud in both directions automatically, and nobody has to re-enter or reconcile anything by hand.",
       "It also runs on the hardware you're likely to have: standard ESC/POS thermal printers, and Windows, Android and iPad devices. If you'd rather start clean, there are pre-tested kits with POS terminals, thermal printers, KDS tablets and captain handhelds, chosen to work together out of the box.",
     ],
-    approachPhoto: { src: "/images/jamanvar/hardware-counter.jpg", alt: "A Jamanvar POS terminal on a restaurant counter beside a receipt printer and card reader" },
+    approachPhoto: { visual: "hardware-kit" },
     outcomes: [
       { term: "Billing that doesn't blink", description: "Orders, KOTs and bills carry on without a connection, so an outage isn't a service failure." },
       { term: "Automatic catch-up", description: "Everything syncs to the cloud on its own when connectivity returns, in both directions." },

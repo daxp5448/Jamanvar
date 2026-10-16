@@ -1,87 +1,145 @@
 /** @type {import('tailwindcss').Config} */
+
+// Jamanvar design tokens: Orange + Ivory.
+//
+// Semantic names (ivory, surface, ink, line, brand, night) are what new code
+// uses. The older scale names (jamanvar.navy / saffron / cream) are kept as
+// aliases of the same warm palette so nothing drifts back to cool slate:
+//   navy    → warm ink scale
+//   saffron → brand orange scale
+//   cream   → ivory scale
+// Mirror any change here in the CSS variables at the top of globals.css.
+
+const ink = {
+  50: "#FAF6F2",
+  100: "#F3ECE5",
+  200: "#E6DCD2",
+  300: "#D2C4B7",
+  400: "#AB9D90",
+  500: "#8A7D72",
+  600: "#6F645B",
+  700: "#564C44",
+  800: "#3B332E",
+  900: "#29231F",
+  950: "#1E1916",
+};
+
+const orange = {
+  50: "#FFF3EA",
+  100: "#FFE4D0",
+  200: "#FCCBA6",
+  300: "#F9A872",
+  400: "#F78F4C",
+  500: "#F47B35",
+  600: "#D95F1B",
+  700: "#B44C14",
+  800: "#8E3D13",
+  900: "#713213",
+};
+
+const ivory = {
+  50: "#FFFCF8",
+  100: "#FFF8F0",
+  200: "#F7EDE2",
+  300: "#EDE2D8",
+  400: "#DCCDBF",
+  500: "#BFAE9F",
+  600: "#8A7D72",
+  700: "#6F645B",
+  800: "#564C44",
+  900: "#3B332E",
+};
+
 module.exports = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/content/**/*.{js,ts}",
   ],
   theme: {
     extend: {
       colors: {
+        ivory: { DEFAULT: ivory[100], soft: ivory[50], deep: ivory[200] },
+        surface: { DEFAULT: ivory[50], white: "#FFFFFF" },
+        ink: {
+          DEFAULT: ink[900],
+          strong: ink[950],
+          soft: ink[700],
+          muted: ink[600],
+          faint: ink[400],
+          ...ink,
+        },
+        line: { DEFAULT: ivory[300], strong: ivory[400] },
+        brand: {
+          DEFAULT: orange[500],
+          deep: orange[600],
+          // Orange that passes 4.5:1 as text on ivory.
+          text: orange[700],
+          ...orange,
+        },
+        night: { DEFAULT: "#28221F", soft: "#342D29", deep: "#1E1916" },
+        // Background of the Jamanvar product UI shown inside device frames.
+        screen: "#0B1526",
+        success: { DEFAULT: "#2F7D4F", soft: "#E7F3EA" },
+        danger: { DEFAULT: "#B42318", soft: "#FDECEA" },
         jamanvar: {
-          navy: {
-            50: "#e9edf3",
-            100: "#c7d2e2",
-            200: "#9fb2cd",
-            300: "#7691b8",
-            400: "#5374a5",
-            500: "#345892",
-            600: "#274577",
-            700: "#1b325c",
-            800: "#102041",
-            900: "#091528",
-            950: "#050b16",
-          },
-          cream: {
-            50: "#fdfcf9",
-            100: "#faf7f0",
-            200: "#f5efe1",
-            300: "#ede4cf",
-            400: "#ded0b6",
-            500: "#caba9b",
-            600: "#b09f7e",
-            700: "#8f7e5f",
-            800: "#6e6047",
-            900: "#4f4431",
-          },
-          saffron: {
-            50: "#fff8eb",
-            100: "#fdeec8",
-            200: "#fcdb8d",
-            300: "#f9c152",
-            400: "#f5a723",
-            500: "#e88515",
-            600: "#cc660d",
-            700: "#a3480c",
-            800: "#82370f",
-            900: "#6b2f10",
-          },
+          navy: ink,
+          saffron: orange,
+          cream: ivory,
           green: {
-            50: "#f0fdf4",
-            100: "#dcfce7",
-            200: "#bbf7d0",
-            300: "#86efac",
-            400: "#4ade80",
-            500: "#22c55e",
-            600: "#16a34a",
-            700: "#15803d",
-            800: "#166534",
-            900: "#14532d",
+            50: "#EEF7F0",
+            100: "#E7F3EA",
+            200: "#C7E3CF",
+            300: "#9DCBA9",
+            400: "#5FA877",
+            500: "#3E8E5C",
+            600: "#2F7D4F",
+            700: "#25653F",
+            800: "#1D4F31",
+            900: "#163D26",
           },
         },
       },
       fontFamily: {
-        sans: ["'Plus Jakarta Sans'", "system-ui", "sans-serif"],
-        serif: ["'Cormorant Garamond'", "Georgia", "serif"],
-        display: ["'Cormorant Garamond'", "Georgia", "serif"],
-        gujarati: ["'Noto Sans Gujarati'", "sans-serif"],
+        sans: ["var(--font-sans)", "Manrope", "system-ui", "sans-serif"],
+        gujarati: ["var(--font-gujarati)", "'Noto Sans Gujarati'", "sans-serif"],
+      },
+      maxWidth: {
+        content: "78rem",
+        prose: "42rem",
+      },
+      borderRadius: {
+        btn: "0.625rem",
+        card: "1rem",
+        panel: "1.5rem",
       },
       boxShadow: {
-        subtle: "0 2px 10px rgba(9, 21, 40, 0.04), 0 1px 3px rgba(9, 21, 40, 0.02)",
-        card: "0 12px 36px -12px rgba(9, 21, 40, 0.08), 0 4px 10px -2px rgba(9, 21, 40, 0.03)",
-        elevated: "0 24px 48px -12px rgba(9, 21, 40, 0.14), 0 0 1px 1px rgba(9, 21, 40, 0.05)",
-        saffron: "0 10px 30px -5px rgba(232, 133, 21, 0.38)",
-        glow: "0 0 70px -15px rgba(232, 133, 21, 0.3)",
-      },
-      animation: {
-        "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
-        "float-slow": "float 6s ease-in-out infinite",
+        subtle: "0 1px 2px rgba(41, 35, 31, 0.05)",
+        card: "0 1px 2px rgba(41, 35, 31, 0.04), 0 10px 28px -16px rgba(41, 35, 31, 0.18)",
+        lift: "0 2px 6px rgba(41, 35, 31, 0.05), 0 28px 56px -28px rgba(41, 35, 31, 0.32)",
+        device: "0 12px 24px -12px rgba(41, 35, 31, 0.25), 0 48px 90px -40px rgba(41, 35, 31, 0.45)",
+        brand: "0 1px 2px rgba(180, 76, 20, 0.2), 0 8px 18px -10px rgba(244, 123, 53, 0.7)",
+        // Legacy aliases
+        elevated: "0 2px 6px rgba(41, 35, 31, 0.05), 0 28px 56px -28px rgba(41, 35, 31, 0.32)",
+        saffron: "0 1px 2px rgba(180, 76, 20, 0.2), 0 8px 18px -10px rgba(244, 123, 53, 0.7)",
+        "saffron-sm": "0 4px 12px -6px rgba(244, 123, 53, 0.55)",
       },
       keyframes: {
-        float: {
-          "0%, 100%": { transform: "translateY(0px)" },
-          "50%": { transform: "translateY(-8px)" },
+        "fade-down": {
+          from: { opacity: "0", transform: "translateY(-6px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
         },
+        "fade-in": { from: { opacity: "0" }, to: { opacity: "1" } },
+        "slide-in-right": {
+          from: { transform: "translateX(100%)" },
+          to: { transform: "translateX(0)" },
+        },
+      },
+      animation: {
+        "fade-down": "fade-down 180ms ease-out",
+        "fade-in": "fade-in 180ms ease-out",
+        "slide-in-right": "slide-in-right 240ms cubic-bezier(0.22, 1, 0.36, 1)",
       },
     },
   },

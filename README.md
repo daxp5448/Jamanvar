@@ -7,9 +7,10 @@ Marketing site for **Jamanvar** — a modern restaurant management & billing pla
 ## Tech Stack
 
 - **Framework:** [Next.js 14](https://nextjs.org/) (App Router) + React 18 + TypeScript
-- **Styling:** Tailwind CSS with a custom Jamanvar design system (cream/navy/saffron palette, Gujarati typography)
-- **Animation:** Framer Motion
-- **Fonts:** Plus Jakarta Sans, Cormorant Garamond, Noto Sans Gujarati (via `next/font`)
+- **Styling:** Tailwind CSS with the Jamanvar Orange + Ivory design system (tokens in `tailwind.config.js` and `src/app/globals.css`)
+- **Motion:** CSS transitions and a small scroll-reveal observer (respects reduced motion)
+- **Tests:** Playwright end-to-end and content-integrity suites, with axe accessibility checks
+- **Fonts:** Manrope and Noto Sans Gujarati, self-hosted via `next/font`
 - **Other:** `canvas-confetti`, `qrcode`, `sharp`, `lucide-react`
 
 ## Getting Started
@@ -64,25 +65,42 @@ make check    # health, routing, assets, TLS
 make logs     # tail container logs
 ```
 
-### Page Sections
+### Site structure
 
-The landing page (`src/app/page.tsx`) is composed of the following sections, in order:
+```
+src/
+  app/                    Routes. products/[slug] renders every standard product page;
+                          products/whatsapp-ordering has its own layout.
+  content/                All copy and data: products, productDetails, solutions, workflow,
+                          navigation, onboarding, screens, whatsappOrdering.
+  components/
+    site/                 Shell and primitives: SiteHeader, Footer, DeviceFrame, PhoneShell,
+                          WhatsAppChat, KioskMockup, BrandPanel, DemoRequestForm, LegalShell.
+    sections/             Page sections shared across routes (heroes, FAQ, CTA, product body).
+    home/                 Homepage sections; home/demo/ is the interactive product demo.
+    whatsapp/             WhatsApp Ordering page sections.
+  lib/                    Sample restaurant data and small utilities.
+tests/                    Playwright: content integrity + end-to-end (desktop and mobile).
+```
 
-1. **Site Intro Video** — cinematic intro animation
-2. **Hero** — parallax POS mockup with demo CTA
-3. **Restaurant Flow** — Order → Kitchen → Table → Bill → Payment → Insight
-4. **Cursor Image Trail** — signature interactive visual
-5. **Features** — asymmetric product feature grid
-6. **Product Showcase** — POS, Tables, Kitchen, Inventory, Analytics
-7. **Owner Section** — restaurant owner editorial & philosophy
-8. **ROI Calculator** — interactive table-turn savings simulator
-9. **Analytics Section** — data intelligence highlight
-10. **Hardware Section** — hardware ecosystem & offline resilience
-11. **Restaurateur Stories** — testimonials & case studies
-12. **Final CTA** — closing call-to-action
-13. **Footer**
+- Copy only describes capabilities the product has; see the header comment in each content file.
+- Product screens are drawn in code (`src/components/screens/`) in the real app's light theme, with the English logo in every app bar and sample data. They sit inside CSS devices (`src/components/devices/Devices.tsx`: phone, handheld, tablet, laptop, monitor, wall display, kiosk) and scale with container-query units, so they stay sharp at any size. `DESIGN_WIDTH` in `screens/ui.tsx` sets how dense each family is. The kiosk and WhatsApp chat follow the real flows.
+- The whole site uses the light Orange + Ivory theme; there are no dark sections.
+- Forms validate in the browser and hand the request to WhatsApp or email; the site has no form backend.
+- `/whatsapp-ordering` and `/kiosk` redirect to their product pages.
+- The logo is the English wordmark (`public/english-logo.png`). `node scripts/prepare-logo.mjs` turns it into the transparent header/footer logo, the social share image and the favicon (`src/app/icon.png`); paths live in `src/content/brand.ts` and every placement uses `components/site/Logo.tsx`.
 
-Plus a `ThermalBillModal` and `DemoModal` available globally for interactive demos.
+### Checks
+
+```bash
+npm run typecheck      # strict TypeScript, no unused code
+npm run lint
+npm run build
+npm test               # Playwright; starts `next start` on :3040 if nothing is running
+npm run qa:visual      # full-page screenshots of every route at 7 widths, axe, links
+```
+
+`npm run check` runs typecheck, lint, build and tests in order. Set `PLAYWRIGHT_CHROMIUM_PATH` to use an installed Chromium.
 
 ## License
 
