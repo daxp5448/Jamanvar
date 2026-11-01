@@ -33,6 +33,7 @@ export const NAV_SOLUTIONS = SOLUTIONS.map((s) => ({
 
 export const NAV_LINKS = [
   { name: "How it works", href: "/how-it-works" },
+  { name: "Apps", href: "/apps" },
   { name: "Support", href: "/support" },
   { name: "About", href: "/about" },
 ];

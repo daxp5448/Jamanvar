@@ -6,6 +6,7 @@ import { Logo } from "./Logo";
 const companyLinks = [
   ["How it works", "/how-it-works"],
   ["All capabilities", "/features"],
+  ["Download apps", "/apps"],
   ["About Jamanvar", "/about"],
   ["Support and training", "/support"],
   ["Security and GST", "/security-gst"],

@@ -7,6 +7,7 @@ const ROUTES = [
   "/",
   "/features",
   "/how-it-works",
+  "/apps",
   "/about",
   "/support",
   "/contact",
@@ -66,7 +67,7 @@ test("sitemap lists every product including the new ones", async ({ request }) =
   for (const p of PRODUCTS) expect(xml).toContain(`/products/${p.slug}</loc>`);
 });
 
-for (const route of ["/", "/products/whatsapp-ordering", "/products/kiosk", "/book-a-demo"]) {
+for (const route of ["/", "/apps", "/products/whatsapp-ordering", "/products/kiosk", "/book-a-demo"]) {
   test(`${route} has no serious accessibility violations`, async ({ page }) => {
     await page.goto(route);
     await page.evaluate(() => document.querySelectorAll(".reveal").forEach((e) => e.classList.add("is-visible")));

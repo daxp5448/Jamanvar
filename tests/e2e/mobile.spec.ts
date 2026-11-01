@@ -16,7 +16,7 @@ test("the mobile menu opens, locks scrolling, navigates and closes", async ({ pa
   await expect(page.getByRole("dialog", { name: "Site menu" })).toHaveCount(0);
 });
 
-for (const route of ["/", "/products/whatsapp-ordering", "/products/kiosk"]) {
+for (const route of ["/", "/apps", "/products/whatsapp-ordering", "/products/kiosk"]) {
   test(`${route} fits a 390px screen with comfortable tap targets`, async ({ page }) => {
     await page.goto(route);
     expect(await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)).toBeLessThanOrEqual(0);

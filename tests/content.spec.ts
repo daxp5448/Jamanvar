@@ -9,6 +9,7 @@ import { SOLUTIONS } from "../src/content/solutions";
 import { CHAT_SCENES, FAQS as WHATSAPP_FAQS } from "../src/content/whatsappOrdering";
 import { WORKFLOW_STAGES } from "../src/content/workflow";
 import { LOGO, OG_IMAGE } from "../src/content/brand";
+import { APPLICATIONS } from "../src/content/applications";
 
 // Content integrity: every reference between content files resolves, so a
 // typo can't ship as a broken link or a missing image.
@@ -60,5 +61,25 @@ test("WhatsApp content makes no claims the product doesn't support", () => {
 test("brand logo and share image files exist", () => {
   for (const src of [LOGO.small.src, LOGO.large.src, LOGO.master, OG_IMAGE.url]) {
     expect(existsSync(join(PUBLIC, src)), src).toBe(true);
+  }
+});
+
+test("application downloads use the official direct Windows installer URLs", () => {
+  const expected = {
+    kiosk: "JAMANVAAR-Kiosk-Setup.exe",
+    pos: "JAMANVAAR-POS-Setup.exe",
+    "restaurant-admin": "JAMANVAAR-POS-Admin-Setup.exe",
+    captain: "JAMANVAAR-Captain-Setup.exe",
+    kds: "JAMANVAAR-KDS-Setup.exe",
+  } as const;
+
+  expect(APPLICATIONS).toHaveLength(5);
+  for (const app of APPLICATIONS) {
+    expect(app.downloadUrl).toBe(
+      `https://github.com/kelviontech-solution/jamanvaar-ci/releases/download/v1.0.8-unsigned-local/${expected[app.id]}`
+    );
+    expect(app.installer).toBe(expected[app.id]);
+    expect(app.platform).toBe("Windows");
+    expect(app.version).toBe("v1.0.8");
   }
 });
