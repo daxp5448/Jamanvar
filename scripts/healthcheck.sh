@@ -33,7 +33,9 @@ info "App on 127.0.0.1:${HOST_PORT}"
 code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 10 "http://127.0.0.1:${HOST_PORT}/" || echo 000)
 if [ "$code" = "200" ]; then ok "GET / -> 200"; else bad "GET / -> $code"; fi
 
-if curl -s --max-time 10 "http://127.0.0.1:${HOST_PORT}/" | grep -qi "jamanvar"; then
+# Capture first: `curl | grep -q` exits early and trips pipefail (SIGPIPE) on large pages.
+home=$(curl -s --max-time 10 "http://127.0.0.1:${HOST_PORT}/" || true)
+if grep -qi "jamanvar" <<<"$home"; then
   ok "homepage HTML rendered"
 else
   bad "homepage HTML missing expected content"
